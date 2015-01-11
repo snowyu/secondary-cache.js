@@ -12,9 +12,9 @@ hasOwnProperty  = Object.prototype.hasOwnProperty
 module.exports  = (options)->
   maxFixedCapacity = null
   fixedCapacity = 0
-  cleanInterval = null
-  maxCapacity   = null
-  maxAge        = null
+  cleanInterval = 0
+  maxCapacity   = 0
+  maxAge        = 0
   _cache        = null
   _cacheLRU     = null
   _cacheExpired = null  # {id: expired_time}
@@ -162,9 +162,9 @@ module.exports  = (options)->
     reset: (options)->
       if options > 0
         maxCapacity   = options
-        maxAge        = null
-        maxFixedCapacity = null
-        cleanInterval = null
+        maxAge        = 0
+        maxFixedCapacity = 0
+        cleanInterval = 0
       else if options
         maxCapacity   = options.capacity
         maxAge        = options.expires
@@ -181,7 +181,7 @@ module.exports  = (options)->
       _cacheLRU     = null
       _cacheExpired = null
       _lruQueue     = null
-      lastCleanTime = null
+      lastCleanTime = 0
     #executes a provided function once per each value in the cache object, in insertion order.
     # callback: Function to execute for each element. callback is invoked with three arguments:
     #   * the element value
