@@ -33,7 +33,7 @@ module.exports  = (options)->
     hasLRU: hasLRU= (id)->hasOwnProperty.call(_cacheLRU, id) and not isExpired(id)
     has: (id) ->hasOwnProperty.call(_cache, id) or hasLRU(id)
     deleteLRU: (id)->
-      setImmediate clearExpires if cleanInterval > 0 and Date.now() - lastCleanTime >= clearExpires
+      setImmediate clearExpires if cleanInterval > 0 and Date.now() - lastCleanTime >= cleanInterval
       if hasOwnProperty.call(_cacheLRU, id)
         result = _cacheLRU[id]
         delete _cacheLRU[id]
@@ -66,7 +66,7 @@ module.exports  = (options)->
       if hasOwnProperty.call(_cache, id)
         _cache[id]
     isExpired: isExpired = (id)->
-      if cleanInterval > 0 and Date.now() - lastCleanTime >= clearExpires
+      if cleanInterval > 0 and Date.now() - lastCleanTime >= cleanInterval
         setImmediate clearExpires
       else
         expires = _cacheExpired[id]
@@ -108,7 +108,7 @@ module.exports  = (options)->
       _cache[id] = value
       cache.emit(event, id, value, oldValue)
     setLRU: setLRU = (id, value, expires)->
-      setImmediate clearExpires if cleanInterval > 0 and Date.now() - lastCleanTime >= clearExpires
+      setImmediate clearExpires if cleanInterval > 0 and Date.now() - lastCleanTime >= cleanInterval
       if hasOwnProperty.call(_cacheLRU, id)
         oldValue = _cacheLRU[id]
         if expires <= 0
@@ -197,7 +197,7 @@ module.exports  = (options)->
         callback.call thisArg, v, k, cache
       return
     forEachLRU: forEachLRU=(callback, thisArg)->
-      setImmediate clearExpires if cleanInterval > 0 and Date.now() - lastCleanTime >= clearExpires
+      setImmediate clearExpires if cleanInterval > 0 and Date.now() - lastCleanTime >= cleanInterval
       for k,v of _cacheLRU
         callback.call thisArg, v, k, cache if not isExpired k
       return
