@@ -14,8 +14,12 @@ the secondary LRU cache only available set the capacity of options or the key's 
       capacity > 0 to enable the secondary LRU cache.
     * expires: the default expires time (milliscond), defaults to no expires time(<=0).
       it will be put into LRU Cache if has expires time
+    * cleanInterval: clean up expired item with a specified interval(seconds) in the background. 
+      disable clean in the background if it's value is less than or equal 0.
   * events:
-    * `'expired'`: triggle on a key is expired.
+    * `'add'`: triggle on a new key added to cache.
+    * `'update'`:triggle on a key updated to cache.
+    * `'del'`: triggle on a key removed from cache.
 
 
 ### cache.set(key, value[,options|expires])
@@ -68,10 +72,34 @@ It will not update the "recently used"-ness in the secondary cache.
 
 the key whether exists in the cache.
 
+### cache.forEach(callback[, thisArg])
+
+executes a provided function once per each value in the cache, in insertion order.
+
+* callback: Function to execute for each element. callback is invoked with three arguments:
+  * the element value
+  * the element key
+  * the cache object
+* thisArg: Value to use as this when executing callback.
+
+### cache.forEachFixed(callback[, thisArg])
+
+executes a provided function once per each value in the first level fixed cache, in insertion order.
+
+### cache.forEachLRU(callback[, thisArg])
+
+executes a provided function once per each value in the secondary level LRU cache, in insertion order.
+
 ### cache.del(key)
-### cache.delete(key)
+
+alias: delete
 
 Deletes a key out of the cache.
+
+### cache.delLRU(key)
+
+### cache.delFixed(key)
+
 
 ### cache.reset(options|capacity)
 

@@ -1,6 +1,6 @@
 {
   "name": "secondary-cache",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "support secondary cache mechanism. the first level cache is fixed memory-resident always with the highest priority. the second level is the LRU cache.",
   "homepage": "https://github.com/snowyu/node-secondary-cache",
   "main": "./index",
