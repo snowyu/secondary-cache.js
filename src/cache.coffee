@@ -16,6 +16,7 @@ module.exports  = class Cache
   hasLRU: LRUCache::has
   has: (id) ->hasOwnProperty.call(@_cache, id) or @hasLRU(id)
   deleteLRU: LRUCache::del
+  delLRU: LRUCache::del
   delFixed: (id)->
     result = @_cache[id]
     if result isnt undefined
@@ -25,35 +26,24 @@ module.exports  = class Cache
       true
   deleteFixed: @::delFixed
   delete: (id) ->
-    result = @_cache[id]
-    if result isnt undefined
-      delete @_cache[id]
-    else
-      result = @_cacheLRU[id]
-      if result isnt undefined
-        delete @_cacheLRU[id]
-        @_lruQueue.delete(id) if @_lruQueue
-      else return false
-    @emit('del', id, result.value)
-    true
+    result = @delFixed(id)
+    result = @delLRU(id) if not result
+    result
   del: @::delete
   getFixed: (id) ->@_cache[id]
   # peek a id from LRU Cache, without updating the "recently used"-ness of the key
   peekLRU: LRUCache::peek
   peek: (id)->
     result = @_cache[id]
-    if result isnt undefined
-      result
-    else
-      peekLRU(id)
+    result = peekLRU(id) if result is undefined
+    result
   getLRU: LRUCache::get
   getFixed: (id)-> @_cache[id]
   get: (id)->
     result = @_cache[id]
-    if result isnt undefined
-      result
-    else
-      @getLRU(id)
+    result = @getLRU(id) if result is undefined
+    result
+
   setFixed: (id, value)->
     oldValue = @_cache[id]
     if oldValue isnt undefined
