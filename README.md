@@ -21,6 +21,36 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * `'update'`:triggle on a key updated to cache.
     * `'del'`: triggle on a key removed from cache.
 
+* LRUCache(options|capacity): the LRU cache Class with expires supports.
+  * options object
+    * capacity: the LRU cache max capacity size, defaults to unlimit. 
+      deletes the least-recently-used items if reached the capacity. 
+      capacity > 0 to enable the LRU.
+    * expires: the default expires time (milliscond), defaults to no expires time(<=0).
+      it will be put into LRU Cache if has expires time
+    * cleanInterval: clean up expired item with a specified interval(seconds) in the background. 
+      disable clean in the background if it's value is less than or equal 0.
+  * events:
+    * `'add'`: triggle on a new key added to cache.
+    * `'update'`:triggle on a key updated to cache.
+    * `'del'`: triggle on a key removed from cache.
+
+## usage
+
+```js
+Cache = require('secondary-cache')
+
+cache = Cache()
+cache.set('key', 'value', {fixed:true})
+cache.get('key')
+
+cache.set('expireskey', 'value', 1000) //expired after 1 second
+
+//or only use LRU Cache
+LRUCache = require('secondary-cache/lib/lru-cache')
+cache = LRUCache(1000)
+...
+```
 
 ### cache.set(key, value[,options|expires])
 
@@ -74,7 +104,8 @@ the key whether exists in the cache.
 
 ### cache.forEach(callback[, thisArg])
 
-executes a provided function once per each value in the cache, in insertion order.
+executes a provided function once per each value in the cache.
+first iterated the fixed cache , and then the LRU cache.
 
 * callback: Function to execute for each element. callback is invoked with three arguments:
   * the element value
@@ -88,7 +119,9 @@ executes a provided function once per each value in the first level fixed cache,
 
 ### cache.forEachLRU(callback[, thisArg])
 
-executes a provided function once per each value in the secondary level LRU cache, in insertion order.
+executes a provided function once per each value in the secondary level LRU cache, 
+in order of recent-ness (more recently used items are iterated over first) if LRU is enabled.
+Or in insertion order.
 
 ### cache.del(key)
 
@@ -114,9 +147,17 @@ Clear the cache entirely and apply the new options.
     it will be put into LRU Cache if has expires time
 
 ### cache.clear()
-### cache.clean()
 
 Clear the cache entirely.
+
+### cache.on(event, listener)
+
+Adds a listener for the specified event.
+
+* event
+  * `'add'`: triggle on a new key added to cache.
+  * `'update'`:triggle on a key updated to cache.
+  * `'del'`: triggle on a key removed from cache.
 
 ### cache.free()
 
