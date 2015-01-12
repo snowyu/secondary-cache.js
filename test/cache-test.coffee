@@ -37,6 +37,7 @@ describe "Cache", ->
       result.should.be.not.equal oldValue
     it 'should delete key in cache', ->
       cache.del("NotFind").should.be.false
+      cache.set 'key', "1"
       cache.del("key").should.be.true
     it 'should clear cache', ->
       value = Math.random()
@@ -126,19 +127,36 @@ describe "Cache", ->
   describe "LRU Cache", ->
     cache = Cache(2)
     it 'should least recently set', ->
-      cache.set 'a', 1
-      cache.set 'b', 2
-      cache.set 'c', 3
-      cache.get('c').should.be.equal 3
-      cache.get('b').should.be.equal 2
+      cache.set 'a', 'A'
+      cache.set 'b', 'B'
+      cache.set 'c', 'C'
+      cache.get('c').should.be.equal 'C'
+      cache.get('b').should.be.equal 'B'
       should.not.exist cache.get('a')
     it 'should lru recently gotten', ->
-      cache.set 'a', 1
-      cache.set 'b', 2
+      cache.clear()
+
+      cache.set 'a', 'A'
+      cache.set 'b', 'B'
       cache.get 'a'
-      cache.set 'c', 3
-      cache.get('c').should.be.equal 3
-      cache.get('a').should.be.equal 1
+      cache.set 'c', 'C'
+      cache.get('c').should.be.equal 'C'
+      cache.get('a').should.be.equal 'A'
+      should.not.exist cache.get('b')
+    it 'should lru recently gotten 2', ->
+      cache.clear()
+      cache.set 'a', 'A'
+      cache.set 'b', 'B'
+      cache.set 'c', 'C'
+      cache.get('c').should.be.equal 'C'
+      cache.get('b').should.be.equal 'B'
+      should.not.exist cache.get('a')
+      cache.set 'a', 'A'
+      cache.set 'b', 'B'
+      cache.get 'a'
+      cache.set 'c', 'C'
+      cache.get('c').should.be.equal 'C'
+      cache.get('a').should.be.equal 'A'
       should.not.exist cache.get('b')
   describe "Events on Cache", ->
     cache = Cache(2)
