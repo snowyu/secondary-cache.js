@@ -1,4 +1,4 @@
-lruQueue        = require('lru-queue')
+lruQueue        = require('./lru-queue')
 emitter         = require('event-emitter').methods
 setImmediate    = setImmediate || process.nextTick
 
@@ -11,7 +11,7 @@ hasOwnProperty  = Object.prototype.hasOwnProperty
 
 module.exports  = class LRUCache
   class LRUCacheItem
-    constructor: (@id, @value, @lru, @expires)->
+    constructor: (@id, @value, @expires)->
   constructor: (options)->
     if (this not instanceof Cache) then return new LRUCache(options)
     @reset(options)
@@ -28,18 +28,20 @@ module.exports  = class LRUCache
     result = @_cacheLRU[id]
     if result isnt undefined
       delete @_cacheLRU[id]
-      @_lruQueue.delete(id) if @_lruQueue
+      @_lruQueue.delete(result) if @_lruQueue
       @emit('del', id, result.value)
       true
+    else
+      false
   del: @::delete
   isExpired: (item)->
+    expired = item.expires
+    expired = expired > 0 and Date.now() >= expired
     if @cleanInterval > 0 and Date.now() - @lastCleanTime >= @cleanInterval
       setImmediate @clearExpires
-    else
-      expires = item.expires
-      if expires > 0 and Date.now() >= expires
-        @del(item.id)
-        return true
+    else if expired
+      @del(item.id)
+    return expired
   # peek a id from LRU Cache, without updating the "recently used"-ness of the key
   peek: (id)->
     result = @_cacheLRU[id]
@@ -48,10 +50,9 @@ module.exports  = class LRUCache
   get: (id)->
     result = @_cacheLRU[id]
     if result isnt undefined and not @isExpired(result)
-      result = result.value
       if @_lruQueue
-        delId = @_lruQueue.hit(id)
-        @del(delId) if delId isnt undefined
+        @_lruQueue.use(result)
+      result = result.value
     else
       result = undefined
     result
@@ -68,6 +69,8 @@ module.exports  = class LRUCache
       else if @maxAge > 0
         item.expires = Date.now() + @maxAge
       event = 'update'
+      if @_lruQueue
+        @_lruQueue.use(item)
     else
       event = 'add'
       if expires > 0
@@ -75,11 +78,11 @@ module.exports  = class LRUCache
       else if @maxAge > 0
         expires = Date.now() + @maxAge
       else expires = undefined
-      item = new LRUCacheItem(id, value, null, expires)
+      item = new LRUCacheItem(id, value, expires)
       @_cacheLRU[id] = item
-    if @_lruQueue
-      delId = @_lruQueue.hit(id)
-      @del(delId) if delId isnt undefined
+      if @_lruQueue
+        delItem = @_lruQueue.add(item)
+        @del(delItem.id) if delItem isnt undefined
     @emit(event, id, value, oldValue)
   clear: ->
     oldCache      = @_cacheLRU
@@ -91,7 +94,6 @@ module.exports  = class LRUCache
     else
       @_lruQueue   = null
     return @
-  clean: @::clear
   reset: (options)->
     if options > 0
       @maxCapacity   = options
@@ -109,7 +111,8 @@ module.exports  = class LRUCache
     @_cacheLRU     = null
     @_lruQueue     = null
     @lastCleanTime = 0
-  #executes a provided function once per each value in the cache object, in insertion order.
+  #executes a provided function once per each value in the cache object, 
+  # in order of recent-ness. (more recently used items are iterated over first)
   # callback: Function to execute for each element. callback is invoked with three arguments:
   #   * the element value
   #   * the element key
@@ -117,8 +120,14 @@ module.exports  = class LRUCache
   # thisArg: Value to use as this when executing callback.
   forEach: (callback, thisArg)->
     setImmediate @clearExpires if @cleanInterval > 0 and Date.now() - @lastCleanTime >= @cleanInterval
-    for k,item of @_cacheLRU
-      callback.call thisArg, item.value, k, @ if not @isExpired item
+    thisArg ||= this
+    if @_lruQueue
+      @_lruQueue.forEach (item)->
+        callback.call thisArg, item.value, item.id, this if not @isExpired item
+      , this
+    else
+      for k,item of @_cacheLRU
+        callback.call thisArg, item.value, k, @ if not @isExpired item
     return
   clearExpires: ->
     for k,v of @_cacheLRU
