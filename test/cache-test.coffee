@@ -158,7 +158,41 @@ describe "Cache", ->
       cache.get('c').should.be.equal 'C'
       cache.get('a').should.be.equal 'A'
       should.not.exist cache.get('b')
-  describe "Events on Cache", ->
+
+  describe "Events on Fixed Cache", ->
+    cache = Cache()
+    it 'should listen to "add" event', (done)->
+      expected = Math.random()
+      cache.on 'add', (key, value)->
+        key.should.be.equal 'key'
+        value.should.be.equal expected
+        done()
+      cache.set 'key', expected, fixed: true
+      cache.getFixed('key').should.be.equal expected
+    it 'should listen to "update" event', (done)->
+      newValue = Math.random()
+      oldValue = cache.get 'key'
+      should.exist oldValue
+      cache.on 'update', (key, value, aOldValue)->
+        key.should.be.equal 'key'
+        value.should.be.equal newValue
+        aOldValue.should.be.equal oldValue
+        done()
+      cache.set 'key', newValue
+      oldValue = cache.get 'key'
+      oldValue.should.be.equal newValue
+      cache.getFixed('key').should.be.equal newValue
+    it 'should listen to "del" event', (done)->
+      oldValue = cache.get 'key'
+      should.exist oldValue
+      cache.on 'del', (key, value)->
+        key.should.be.equal 'key'
+        value.should.be.equal oldValue
+        done()
+      cache.del 'key'
+      cache.has('key').should.be.false
+      cache.hasFixed('key').should.be.false
+  describe "Events on LRU Cache", ->
     cache = Cache(2)
     it 'should listen to "add" event', (done)->
       expected = Math.random()
