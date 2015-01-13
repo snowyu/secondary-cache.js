@@ -10,18 +10,25 @@ benchmark = (run)->
   run()
   diff = process.hrtime(start)
   em = process.memoryUsage()
-  usedMem = em.rss - sm.rss
-  heapTotal = em.heapTotal - sm.heapTotal
-  heapUsed = em.heapUsed - sm.heapUsed
-  console.log("Memory Used: " + (usedMem/1024) + "KB")
-  console.log("Heap Total: " + (heapTotal/1024) + "KB")
-  console.log("Heap Used: " + (heapUsed/1024) + "KB")
-  console.log("Time Cost: " + (diff[0]*1e3+diff[1]/1e6) + " ms\n")
+  usedMem = (em.rss - sm.rss) / 1024
+  heapTotal = (em.heapTotal - sm.heapTotal) / 1024
+  heapUsed = (em.heapUsed - sm.heapUsed) / 1024
+  time = diff[0]*1e3 + diff[1]/1e6
+  console.log("Memory Used: " + (usedMem) + "KB")
+  console.log("Heap Total: " + (heapTotal) + "KB")
+  console.log("Heap Used: " + (heapUsed) + "KB")
+  console.log("Time Cost: " + (time) + " ms\n")
 
 console.log("fixed Cache:")
 
 benchmark ->
-  console.log("------set benchmark---------")
+  console.log("------add benchmark---------")
+  for i in [0...maxCap]
+    cache.setFixed('test' + i, i)
+  return
+
+benchmark ->
+  console.log("------update benchmark---------")
   for i in [0...maxCap]
     cache.setFixed('test' + i, i)
   return
@@ -46,7 +53,13 @@ benchmark ->
 console.log("LRU Cache:")
 
 benchmark ->
-  console.log("------set benchmark---------")
+  console.log("------add benchmark---------")
+  for i in [0...maxCap]
+    lruCache.set('test' + i, i)
+  return
+
+benchmark ->
+  console.log("------update benchmark---------")
   for i in [0...maxCap]
     lruCache.set('test' + i, i)
   return
