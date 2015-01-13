@@ -1,4 +1,4 @@
-# Secondary Cache [![Build Status](https://img.shields.io/travis/snowyu/node-secondary-cache/master.svg)](http://travis-ci.org/snowyu/node-secondary-cache) [![npm](https://img.shields.io/npm/v/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![downloads](https://img.shields.io/npm/dm/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![license](https://img.shields.io/npm/l/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) 
+## Secondary Cache [![Build Status](https://img.shields.io/travis/snowyu/node-secondary-cache/master.svg)](http://travis-ci.org/snowyu/node-secondary-cache) [![npm](https://img.shields.io/npm/v/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![downloads](https://img.shields.io/npm/dm/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![license](https://img.shields.io/npm/l/secondary-cache.svg)](https://npmjs.org/package/secondary-cache)
 
 
 It can support secondary cache mechanism. the first level cache is fixed memory-resident always with the highest priority.
@@ -34,6 +34,12 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * `'add'`: triggle on a new key added to cache.
     * `'update'`:triggle on a key updated to cache.
     * `'del'`: triggle on a key removed from cache.
+
+* LRUQueue(capacity): the LRU queue class for object queue item.
+  * add(id): add the id object to the queue.
+  * use(id): make the id object in the queue as most recently used items first.
+  * del(id): del the id object from the queue.
+  * note: it used the `'lu'` property of the object queue item.
 
 ## usage
 
@@ -162,6 +168,4 @@ Adds a listener for the specified event.
 ### cache.free()
 
 free the first fixed cache and the secondary LRU cache.
-
-
 
