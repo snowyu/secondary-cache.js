@@ -15,10 +15,16 @@ module.exports = class LRUQueue
     @queue[@_mru] = id
     ++@length
     ++@_mru
-    result = @queue[@_lru] if @length > @maxCapacity
+    result = @popup() if @length > @maxCapacity
+    result
+  popup: ()->
+    @shiftLU()#@_lru++ while @_lru < @_mru and not @queue[@_lru]
+    result = @queue[@_lru]
+    delete @queue[@_lru]
+    --@length
     result
   use:(id) ->
-    @shiftLU id.lu
+    delete @queue[id.lu]
     id.lu = @_mru
     @queue[@_mru] = id
     ++@_mru
@@ -35,7 +41,6 @@ module.exports = class LRUQueue
       @_map[s]=id
     if id.lu is undefined
       result = @add id
-      @del result if result
       if result instanceof QueueItem
         result = result.value
         delete @_map[result]
@@ -44,10 +49,11 @@ module.exports = class LRUQueue
       @use id
 
   delete: (id) ->
-    if id.lu isnt undefined
+    if @queue[id.lu]
+      delete @queue[id.lu]
       --@length
       if @length
-        @shiftLU id.lu
+        @shiftLU()
       else
         @_mru = 0
         @_lru = 0
@@ -74,9 +80,7 @@ module.exports = class LRUQueue
     delete @_map
     return
 
-  shiftLU: (lu) ->
-    q = @queue
-    delete q[lu]
-    @_lru++ while @_lru < @_mru and not q[@_lru]
+  shiftLU: () ->
+    @_lru++ while @_lru < @_mru and not @queue[@_lru]
     return
 

@@ -23,12 +23,12 @@ module.exports  = class LRUCache
   has: (id)->
     item = @_cacheLRU[id]
     item isnt undefined and not @isExpired(item)
-  delete: (id)->
+  delete: (id, isInternal)->
     setImmediate @clearExpires if @cleanInterval > 0 and Date.now() - @lastCleanTime >= @cleanInterval
     result = @_cacheLRU[id]
     if result isnt undefined
       delete @_cacheLRU[id]
-      @_lruQueue.delete(result) if @_lruQueue
+      @_lruQueue.delete(result) if @_lruQueue and isInternal isnt true
       @emit('del', id, result.value)
       true
     else
@@ -50,8 +50,7 @@ module.exports  = class LRUCache
   get: (id)->
     result = @_cacheLRU[id]
     if result isnt undefined and not @isExpired(result)
-      if @_lruQueue
-        @_lruQueue.use(result)
+      @_lruQueue.use(result) if @_lruQueue
       result = result.value
     else
       result = undefined
@@ -82,7 +81,7 @@ module.exports  = class LRUCache
       @_cacheLRU[id] = item
       if @_lruQueue
         delItem = @_lruQueue.add(item)
-        @del(delItem.id) if delItem isnt undefined
+        @del(delItem.id, true) if delItem isnt undefined
     @emit(event, id, value, oldValue)
   clear: ->
     oldCache      = @_cacheLRU
