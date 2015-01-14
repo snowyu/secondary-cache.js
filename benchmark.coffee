@@ -1,4 +1,4 @@
-Cache = require './src/cache'
+Cache = require './lib/cache'
 
 maxCap = 10000
 lruCache = Cache(maxCap)
