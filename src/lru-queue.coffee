@@ -15,9 +15,9 @@ module.exports = class LRUQueue
     @queue[@_mru] = id
     ++@length
     ++@_mru
-    result = @popup() if @length > @maxCapacity
+    result = @pop() if @length > @maxCapacity
     result
-  popup: ()->
+  pop: ()->
     @shiftLU()#@_lru++ while @_lru < @_mru and not @queue[@_lru]
     result = @queue[@_lru]
     delete @queue[@_lru]
