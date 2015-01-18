@@ -17,6 +17,7 @@ module.exports = class LRUQueue
     ++@_mru
     result = @pop() if @length > @maxCapacity
     result
+  push: @::add
   pop: ()->
     @shiftLU()#@_lru++ while @_lru < @_mru and not @queue[@_lru]
     result = @queue[@_lru]
