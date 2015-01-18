@@ -1,10 +1,9 @@
-util            = require('abstract-object/util')
+inherits        = require('abstract-object/lib/util/inherits')
 LRUCache        = require('./lru-cache')
 setImmediate    = setImmediate || process.nextTick
 
 create          = Object.create
 hasOwnProperty  = Object.prototype.hasOwnProperty
-inherits        = util.inherits
 
 module.exports  = class Cache
   inherits Cache, LRUCache
