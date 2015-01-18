@@ -39,7 +39,6 @@
     "grunt-saucelabs": "*",
     "grunt-usemin": "*",
     "mocha": "~2.0.1",
-    "powerbuild": "latest",
     "sinon": "~1.12.2",
     "sinon-chai": "~2.6.0",
     "source-map-support": "*"
