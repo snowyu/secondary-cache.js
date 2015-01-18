@@ -1,3 +1,4 @@
+isEmpty         = require('abstract-object/lib/util/isEmpty')
 chai            = require 'chai'
 sinon           = require 'sinon'
 sinonChai       = require 'sinon-chai'
@@ -61,6 +62,11 @@ describe "Cache", ->
     it 'should forEach cache', ->
       pairs = {}
       for i in [1..10]
+        key = 'fixedkey_'+ i
+        value = Math.random()
+        cache.setFixed key, value
+        pairs[key] = value
+      for i in [1..10]
         key = 'key_'+ i
         value = Math.random()
         cache.set key, value
@@ -69,7 +75,13 @@ describe "Cache", ->
       cache.forEach (v,k,cache)->
         ++count
         v.should.be.equal pairs[k]
-      count.should.be.equal 10
+      count.should.be.equal 20
+    it 'should free cache', ->
+      cache.free()
+      count = 0
+      cache.forEach (v,k,cache)->
+        ++count
+      count.should.be.equal 0
   describe "Unlimited Fixed Cache", ->
     cache = Cache()
     it 'should add to the first level fixed cache via .setFixed', ->

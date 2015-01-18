@@ -105,7 +105,7 @@ module.exports  = class LRUCache
       @cleanInterval = @cleanInterval * 1000 if @cleanInterval > 0
     @clear()
   free: ->
-    for k,v of _cacheLRU
+    for k,v of @_cacheLRU
       @emit('del', k, v)
     @_cacheLRU     = null
     @_lruQueue     = null

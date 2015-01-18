@@ -88,7 +88,7 @@ module.exports  = class Cache
     for k,v of @_cache
       @emit('del', k, v)
     @_cache        = null
-    @freeLRU
+    @freeLRU()
   #executes a provided function once per each value in the cache object, in insertion order.
   # callback: Function to execute for each element. callback is invoked with three arguments:
   #   * the element value
