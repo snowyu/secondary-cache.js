@@ -106,7 +106,7 @@ module.exports  = class LRUCache
     @clear()
   free: ->
     for k,v of @_cacheLRU
-      @emit('del', k, v)
+      @emit('del', k, v.value)
     @_cacheLRU     = null
     @_lruQueue     = null
     @lastCleanTime = 0

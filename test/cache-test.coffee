@@ -14,6 +14,19 @@ describe "Cache", ->
     #after (done)->
   describe "Unlimited Cache", ->
     cache = Cache()
+    fillDataTo = (cache)->
+      pairs = {}
+      for i in [1..10]
+        key = 'fixedkey_'+ i
+        value = Math.random()
+        cache.setFixed key, value
+        pairs[key] = value
+      for i in [1..10]
+        key = 'key_'+ i
+        value = Math.random()
+        cache.set key, value
+        pairs[key] = value
+      pairs
     it 'should add a value to cache', ->
       value = Math.random()
       should.not.exist cache.get('key')
@@ -41,13 +54,7 @@ describe "Cache", ->
       cache.set 'key', "1"
       cache.del("key").should.be.true
     it 'should clear cache', ->
-      value = Math.random()
-      pairs = {}
-      for i in [1..10]
-        key = 'key_'+ i
-        value = Math.random()
-        cache.set key, value
-        pairs[key] = value
+      pairs = fillDataTo cache
       for k,v of pairs
         cache.get(k).should.be.equal v
       cache.clear()
@@ -60,26 +67,28 @@ describe "Cache", ->
       notEmpty.should.be.false
 
     it 'should forEach cache', ->
-      pairs = {}
-      for i in [1..10]
-        key = 'fixedkey_'+ i
-        value = Math.random()
-        cache.setFixed key, value
-        pairs[key] = value
-      for i in [1..10]
-        key = 'key_'+ i
-        value = Math.random()
-        cache.set key, value
-        pairs[key] = value
+      pairs = fillDataTo cache
       count = 0
       cache.forEach (v,k,cache)->
         ++count
         v.should.be.equal pairs[k]
-      count.should.be.equal 20
-    it 'should free cache', ->
-      cache.free()
+      count.should.be.equal Object.keys(pairs).length
+    it 'should emit the del event when free cache', ->
+      vCache = new Cache()
+      pairs = fillDataTo vCache
       count = 0
-      cache.forEach (v,k,cache)->
+      vCache.on 'del', (k,v)->
+        ++count
+        console.log k,v
+        v.should.be.equal pairs[k]
+      vCache.free()
+      count.should.be.equal Object.keys(pairs).length
+    it 'should free cache', ->
+      vCache = new Cache()
+      pairs = fillDataTo vCache
+      vCache.free()
+      count = 0
+      vCache.forEach (v,k,cache)->
         ++count
       count.should.be.equal 0
   describe "Unlimited Fixed Cache", ->
