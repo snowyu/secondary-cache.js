@@ -106,6 +106,8 @@ It will not update the "recently used"-ness in the secondary cache.
 
 ### cache.has(key)
 
+aliases: isExist, isExists
+
 the key whether exists in the cache.
 
 ### cache.forEach(callback[, thisArg])
