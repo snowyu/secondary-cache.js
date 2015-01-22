@@ -14,6 +14,8 @@ module.exports  = class Cache
   hasFixed: (id)->hasOwnProperty.call(@_cache, id) 
   hasLRU: LRUCache::has
   has: (id) ->hasOwnProperty.call(@_cache, id) or @hasLRU(id)
+  isExist: @::has
+  isExists: @::has
   deleteLRU: LRUCache::del
   delLRU: LRUCache::del
   delFixed: (id)->

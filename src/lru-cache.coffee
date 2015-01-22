@@ -23,6 +23,8 @@ module.exports  = class LRUCache
   has: (id)->
     item = @_cacheLRU[id]
     item isnt undefined and not @isExpired(item)
+  isExist: @::has
+  isExists: @::has
   delete: (id, isInternal)->
     setImmediate @clearExpires if @cleanInterval > 0 and Date.now() - @lastCleanTime >= @cleanInterval
     result = @_cacheLRU[id]
