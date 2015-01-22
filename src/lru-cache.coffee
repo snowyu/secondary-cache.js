@@ -13,7 +13,7 @@ module.exports  = class LRUCache
   class LRUCacheItem
     constructor: (@id, @value, @expires)->
   constructor: (options)->
-    if (this not instanceof Cache) then return new LRUCache(options)
+    if (this not instanceof LRUCache) then return new LRUCache(options)
     @reset(options)
   emit: emit
   on: addListener
