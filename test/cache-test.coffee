@@ -79,7 +79,6 @@ describe "Cache", ->
       count = 0
       vCache.on 'del', (k,v)->
         ++count
-        console.log k,v
         v.should.be.equal pairs[k]
       vCache.free()
       count.should.be.equal Object.keys(pairs).length
