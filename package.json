@@ -16,6 +16,9 @@
   "scripts": {
     "test": "grunt test"
   },
+  "pre-commit": [
+    "test"
+  ],
   "dependencies": {
     "abstract-object": "~1.9.1",
     "events-ex": "~0.9.4"
@@ -39,6 +42,7 @@
     "grunt-saucelabs": "*",
     "grunt-usemin": "*",
     "mocha": "~2.0.1",
+    "pre-commit": "~1.0.2",
     "sinon": "~1.12.2",
     "sinon-chai": "~2.6.0",
     "source-map-support": "*"
