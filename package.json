@@ -17,8 +17,8 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "abstract-object": ">=1.6.1",
-    "event-emitter": "~0.3.1"
+    "abstract-object": "~1.9.1",
+    "events-ex": "~0.9.4"
   },
   "devDependencies": {
     "chai": "~1.10.0",

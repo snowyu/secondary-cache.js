@@ -1,24 +1,18 @@
 lruQueue        = require('./lru-queue')
-emitter         = require('event-emitter').methods
+eventable       = require('events-ex/eventable')
 setImmediate    = setImmediate || process.nextTick
 
-addListener     = emitter.on
-once            = emitter.once
-delListener     = emitter.off
-emit            = emitter.emit
 create          = Object.create
 hasOwnProperty  = Object.prototype.hasOwnProperty
 
 module.exports  = class LRUCache
+  eventable LRUCache
+
   class LRUCacheItem
     constructor: (@id, @value, @expires)->
   constructor: (options)->
     if (this not instanceof LRUCache) then return new LRUCache(options)
     @reset(options)
-  emit: emit
-  on: addListener
-  addListener: @::on
-  off: delListener
   delListener: @::off
   has: (id)->
     item = @_cacheLRU[id]
