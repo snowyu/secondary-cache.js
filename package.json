@@ -1,6 +1,6 @@
 {
   "name": "secondary-cache",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "support secondary cache mechanism. the first level cache is fixed memory-resident always with the highest priority. the second level is the LRU cache.",
   "homepage": "https://github.com/snowyu/node-secondary-cache",
   "main": "./index",
@@ -20,11 +20,13 @@
     "test"
   ],
   "dependencies": {
-    "abstract-object": "~1.9.1",
-    "events-ex": "~0.9.4"
+    "abstract-object": "~2.1.5",
+    "events-ex": "~1.1.2",
+    "inherits-ex": "^1.0.6",
+    "util-ex": "^0.2.9"
   },
   "devDependencies": {
-    "chai": "~1.10.0",
+    "chai": "~2.1.1",
     "connect-livereload": "*",
     "grunt": "*",
     "grunt-contrib-clean": "*",
@@ -34,16 +36,16 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
-    "grunt-mocha-test": "~0.12.4",
+    "grunt-mocha-test": "~0.12.7",
     "grunt-newer": "*",
     "grunt-release": "*",
     "grunt-rev": "*",
     "grunt-saucelabs": "*",
     "grunt-usemin": "*",
-    "mocha": "~2.0.1",
-    "pre-commit": "~1.0.2",
-    "sinon": "~1.12.2",
-    "sinon-chai": "~2.6.0",
+    "mocha": "~2.2.0",
+    "pre-commit": "~1.0.6",
+    "sinon": "~1.13.0",
+    "sinon-chai": "~2.7.0",
     "source-map-support": "*"
   },
   "repository": {

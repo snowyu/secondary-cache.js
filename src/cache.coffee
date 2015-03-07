@@ -1,4 +1,4 @@
-inherits        = require('abstract-object/lib/util/inherits')
+inherits        = require('inherits-ex')
 LRUCache        = require('./lru-cache')
 setImmediate    = setImmediate || process.nextTick
 
