@@ -63,7 +63,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-contrib-clean')
   grunt.loadNpmTasks('grunt-newer')
-  grunt.loadNpmTasks('powerbuild')
 
   grunt.registerTask('build', ['newer:coffee', 'newer:copy'])
   grunt.registerTask('rebuild', ['clean', 'build'])
