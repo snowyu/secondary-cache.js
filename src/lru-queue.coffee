@@ -36,7 +36,7 @@ module.exports = class LRUQueue
       if @_map
         id = @_map[s]
         id = new QueueItem s if id is undefined
-      else 
+      else
         @_map = create(null)
         id = new QueueItem s
       @_map[s]=id
@@ -85,3 +85,5 @@ module.exports = class LRUQueue
     @_lru++ while @_lru < @_mru and not @queue[@_lru]
     return
 
+module.exports.default = LRUQueue
+module.exports.LRUQueue= LRUQueue

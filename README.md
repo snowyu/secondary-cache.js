@@ -9,12 +9,12 @@ the secondary LRU cache only available set the capacity of options or the key's 
 * Cache(options|capacity):
   * options object
     * fixedCapacity: the first fixed cache max capacity size, defaults to unlimit.
-    * capacity: the second LRU cache max capacity size, defaults to unlimit. 
-      deletes the least-recently-used items if reached the capacity. 
+    * capacity: the second LRU cache max capacity size, defaults to 1024.
+      deletes the least-recently-used items if reached the capacity.
       capacity > 0 to enable the secondary LRU cache.
     * expires: the default expires time (milliscond), defaults to no expires time(<=0).
       it will be put into LRU Cache if has expires time
-    * cleanInterval: clean up expired item with a specified interval(seconds) in the background. 
+    * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
       disable clean in the background if it's value is less than or equal 0.
   * events:
     * `'add'`: triggle on a new key added to cache.
@@ -23,12 +23,12 @@ the secondary LRU cache only available set the capacity of options or the key's 
 
 * LRUCache(options|capacity): the LRU cache Class with expires supports.
   * options object
-    * capacity: the LRU cache max capacity size, defaults to unlimit. 
-      deletes the least-recently-used items if reached the capacity. 
+    * capacity: the LRU cache max capacity size, defaults to 1024.
+      deletes the least-recently-used items if reached the capacity.
       capacity > 0 to enable the LRU.
     * expires: the default expires time (milliscond), defaults to no expires time(<=0).
       it will be put into LRU Cache if has expires time
-    * cleanInterval: clean up expired item with a specified interval(seconds) in the background. 
+    * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
       disable clean in the background if it's value is less than or equal 0.
   * events:
     * `'add'`: triggle on a new key added to cache.
@@ -127,7 +127,7 @@ executes a provided function once per each value in the first level fixed cache,
 
 ### cache.forEachLRU(callback[, thisArg])
 
-executes a provided function once per each value in the secondary level LRU cache, 
+executes a provided function once per each value in the secondary level LRU cache,
 in order of recent-ness (more recently used items are iterated over first) if LRU is enabled.
 Or in insertion order.
 
@@ -148,8 +148,8 @@ Clear the cache entirely and apply the new options.
 
 * options object
   * fixedCapacity: the first fixed cache max capacity size, defaults to unlimit.
-  * capacity: the second LRU cache max capacity size, defaults to unlimit. 
-    deletes the least-recently-used items if reached the capacity. 
+  * capacity: the second LRU cache max capacity size, defaults to unlimit.
+    deletes the least-recently-used items if reached the capacity.
     capacity > 0 to enable the secondary LRU cache.
   * expires: the default expires time (seconds), defaults to no expires time(<=0).
     it will be put into LRU Cache if has expires time

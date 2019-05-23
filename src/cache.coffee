@@ -11,7 +11,7 @@ module.exports  = class Cache
   constructor: (options)->
     if (this not instanceof Cache) then return new Cache(options)
     @reset(options)
-  hasFixed: (id)->hasOwnProperty.call(@_cache, id) 
+  hasFixed: (id)->hasOwnProperty.call(@_cache, id)
   hasLRU: LRUCache::has
   has: (id) ->hasOwnProperty.call(@_cache, id) or @hasLRU(id)
   isExist: @::has
@@ -31,7 +31,6 @@ module.exports  = class Cache
     result = @delLRU(id) if not result
     result
   del: @::delete
-  getFixed: (id) ->@_cache[id]
   # peek a id from LRU Cache, without updating the "recently used"-ness of the key
   peekLRU: LRUCache::peek
   peek: (id)->
@@ -106,3 +105,6 @@ module.exports  = class Cache
       callback.call thisArg, v, k, @
     return
   forEachLRU: LRUCache::forEach
+
+module.exports.default = Cache
+module.exports.Cache = Cache

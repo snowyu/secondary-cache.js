@@ -1,15 +1,15 @@
 {
   "name": "secondary-cache",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "support secondary cache mechanism. the first level cache is fixed memory-resident always with the highest priority. the second level is the LRU cache.",
-  "homepage": "https://github.com/snowyu/node-secondary-cache",
+  "homepage": "https://github.com/snowyu/secondary-cache.js",
   "main": "./index",
   "files": [
     "README.md",
     "LICENSE-MIT",
     "index.js",
+    "index.d.ts",
     "test",
-    "abstract",
     "src",
     "lib"
   ],
@@ -22,11 +22,12 @@
   "dependencies": {
     "abstract-object": "^2.1.9",
     "events-ex": "^1.1.5",
-    "inherits-ex": "^1.1.4",
-    "util-ex": "^0.3.14"
+    "inherits-ex": "^1.2.3",
+    "util-ex": "^0.3.15"
   },
   "devDependencies": {
-    "chai": "~2.1.1",
+    "chai": "~4.2.0",
+    "coffee-script": "^1.12.7",
     "connect-livereload": "*",
     "grunt": "*",
     "grunt-contrib-clean": "*",
@@ -36,21 +37,21 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
-    "grunt-mocha-test": "~0.12.7",
+    "grunt-mocha-test": "github:almirfilho/grunt-mocha-test",
     "grunt-newer": "*",
     "grunt-release": "*",
     "grunt-rev": "*",
     "grunt-saucelabs": "*",
     "grunt-usemin": "*",
-    "mocha": "~2.2.0",
+    "mocha": "~6.1.4",
     "pre-commit": "~1.0.6",
-    "sinon": "~1.13.0",
-    "sinon-chai": "~2.7.0",
+    "sinon": "~7.3.2",
+    "sinon-chai": "~3.3.0",
     "source-map-support": "*"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/snowyu/node-secondary-cache"
+    "url": "https://github.com/snowyu/secondary-cache.js"
   },
   "keywords": [
     "abstract",
@@ -68,6 +69,6 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/snowyu/node-secondary-cache/issues"
+    "url": "https://github.com/snowyu/secondary-cache.js/issues"
   }
 }

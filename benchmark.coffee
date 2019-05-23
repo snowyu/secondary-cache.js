@@ -1,8 +1,8 @@
 Cache = require './lib/cache'
 
 maxCap = 10000
-lruCache = Cache(maxCap)
-cache = Cache()
+lruCache = new Cache(maxCap)
+cache = new Cache(0)
 
 benchmark = (run)->
   start = process.hrtime()

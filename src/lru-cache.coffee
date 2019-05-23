@@ -1,4 +1,4 @@
-lruQueue        = require('./lru-queue')
+LruQueue        = require('./lru-queue')
 eventable       = require('events-ex/eventable')
 setImmediate    = setImmediate || process.nextTick
 
@@ -7,6 +7,8 @@ hasOwnProperty  = Object.prototype.hasOwnProperty
 
 module.exports  = class LRUCache
   eventable LRUCache
+
+  MAX_CAPACITY = 1024
 
   class LRUCacheItem
     constructor: (@id, @value, @expires)->
@@ -85,20 +87,22 @@ module.exports  = class LRUCache
     for k,v of oldCache
       @emit('del', k, v.value)
     if @maxCapacity > 0
-      @_lruQueue   = lruQueue(@maxCapacity)
+      @_lruQueue   = new LruQueue(@maxCapacity)
     else
       @_lruQueue   = null
     return @
   reset: (options)->
-    if options > 0
+    if options >= 0 || options < 0
       @maxCapacity   = options
       @maxAge        = 0
       @cleanInterval = 0
     else if options
-      @maxCapacity   = options.capacity
+      @maxCapacity   = options.capacity || MAX_CAPACITY
       @maxAge        = options.expires
       @cleanInterval = options.cleanInterval
       @cleanInterval = @cleanInterval * 1000 if @cleanInterval > 0
+    else
+      @maxCapacity   = MAX_CAPACITY
     @clear()
   free: ->
     for k,v of @_cacheLRU
@@ -106,7 +110,7 @@ module.exports  = class LRUCache
     @_cacheLRU     = null
     @_lruQueue     = null
     @lastCleanTime = 0
-  #executes a provided function once per each value in the cache object, 
+  #executes a provided function once per each value in the cache object,
   # in order of recent-ness. (more recently used items are iterated over first)
   # callback: Function to execute for each element. callback is invoked with three arguments:
   #   * the element value
@@ -129,3 +133,6 @@ module.exports  = class LRUCache
       expires = v.expires
       @del(k) if (v and Date.now() >= expires) or v.value is undefined
     @lastCleanTime = Date.now()
+
+module.exports.default = LRUCache
+module.exports.LRUCache= LRUCache
