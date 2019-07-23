@@ -31,7 +31,7 @@
     "connect-livereload": "*",
     "grunt": "*",
     "grunt-contrib-clean": "*",
-    "grunt-contrib-coffee": "*",
+    "grunt-contrib-coffee": "^1.0.0",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-jshint": "*",
