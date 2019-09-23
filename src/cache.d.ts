@@ -10,6 +10,9 @@ export interface ICacheSetOptions {
 }
 
 export class Cache extends LRUCache {
+  fixedCapacity: number;
+  maxFixedCapacity: number;
+
   hasFixed(id): boolean;
   hasLRU(id): boolean;
   deleteLRU(id, isInternal?: boolean): boolean;

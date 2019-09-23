@@ -22,6 +22,10 @@ export interface LRUCacheItem {
 }
 
 export class LRUCache {
+  maxCapacity: number;
+  maxAge: number;
+  cleanInterval: number;
+
   constructor(options?: LRUCacheOptions);
   delListener(type: string, listener: Function): LRUCache;
   on(type: string, listener: Function): LRUCache;

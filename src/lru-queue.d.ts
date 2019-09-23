@@ -4,6 +4,9 @@ export interface LRUQueueItem {
   [name: string]: any;
 }
 export class LRUQueue {
+  maxCapacity: number;
+  length: number;
+
   constructor(capacity:number);
   add(value: LRUQueueItem): LRUQueueItem|undefined;
   push(value: LRUQueueItem): LRUQueueItem|undefined;
