@@ -39,7 +39,6 @@
     "grunt-contrib-watch": "*",
     "grunt-mocha-test": "github:almirfilho/grunt-mocha-test",
     "grunt-newer": "*",
-    "grunt-release": "*",
     "grunt-rev": "*",
     "grunt-saucelabs": "*",
     "grunt-usemin": "*",
