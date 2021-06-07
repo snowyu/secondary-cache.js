@@ -42,7 +42,7 @@ export class LRUCache {
   clear(): LRUCache;
   reset(options?: LRUCacheOptions): LRUCache;
   free();
-  forEach(callback: (item: LRUCacheItem, thisArg: any)=>void, thisArg?: any): void;
+  forEach(callback: (value: any, id: any, thisArg: any)=>void, thisArg?: any): void;
   clearExpires();
 }
 

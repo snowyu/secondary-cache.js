@@ -26,7 +26,7 @@ export class Cache extends LRUCache {
   setLRU(id, value, expires?: number);
   set(id, value, options?: ICacheSetOptions|number);
   freeLRU();
-  forEachFixed(callback: (item: any, thisArg: any)=>void, thisArg?: any): void;
+  forEachFixed(callback: (value: any, id: any, thisArg: any)=>void, thisArg?: any): void;
 }
 
 export default Cache;
