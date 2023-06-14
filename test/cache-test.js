@@ -198,6 +198,9 @@ describe("Cache", function() {
       cache.get('c').should.be.equal('C');
       cache.get('b').should.be.equal('B');
       should.not.exist(cache.get('a'));
+      cache.peek('c').should.be.equal('C');
+      cache.set('d', 'D');
+      should.not.exist(cache.get('c'));
     });
     it('should lru recently gotten', function() {
       cache.clear();

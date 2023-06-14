@@ -1,5 +1,5 @@
-import LruQueue from './lru-queue'
 import {eventable} from 'events-ex'
+import LruQueue from './lru-queue'
 
 const create = Object.create;
 const MAX_CAPACITY = 1024;

@@ -58,7 +58,7 @@ Cache.prototype.peekLRU = LRUCache.prototype.peek;
 Cache.prototype.peek = function(id) {
   let result = this._cache[id];
   if (result === undefined) {
-    result = peekLRU(id);
+    result = this.peekLRU(id);
   }
   return result;
 };
