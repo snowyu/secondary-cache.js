@@ -44,17 +44,16 @@ the secondary LRU cache only available set the capacity of options or the key's 
 ## usage
 
 ```js
-Cache = require('secondary-cache')
+import {Cache, LRUCache} from 'secondary-cache'
 
-cache = Cache()
-cache.set('key', 'value', {fixed:true})
+cache = new Cache()
+cache.set('key', 'value', {fixed:true}) // put it into fixed capacity storage.
 cache.get('key')
 
-cache.set('expireskey', 'value', 1000) //expired after 1 second
+cache.set('expiresKey', 'value', 1000) // expired after 1 second
 
 //or only use LRU Cache
-LRUCache = require('secondary-cache/lib/lru-cache')
-cache = LRUCache(1000)
+cache = new LRUCache(1000)
 ...
 ```
 
