@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[lru-cache.d.ts:21](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-cache.d.ts#L21)
+[lru-cache.d.ts:21](https://github.com/snowyu/secondary-cache.js/blob/7d2e268/src/lru-cache.d.ts#L21)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:19](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-cache.d.ts#L19)
+[lru-cache.d.ts:19](https://github.com/snowyu/secondary-cache.js/blob/7d2e268/src/lru-cache.d.ts#L19)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:20](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-cache.d.ts#L20)
+[lru-cache.d.ts:20](https://github.com/snowyu/secondary-cache.js/blob/7d2e268/src/lru-cache.d.ts#L20)

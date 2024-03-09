@@ -26,7 +26,7 @@ the second LRU cache max capacity size, defaults to unlimited.
 
 #### Defined in
 
-[lru-cache.d.ts:7](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-cache.d.ts#L7)
+[lru-cache.d.ts:7](https://github.com/snowyu/secondary-cache.js/blob/7d2e268/src/lru-cache.d.ts#L7)
 
 ___
 
@@ -38,7 +38,7 @@ clean up expired item with a specified interval(seconds) in the background.
 
 #### Defined in
 
-[lru-cache.d.ts:15](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-cache.d.ts#L15)
+[lru-cache.d.ts:15](https://github.com/snowyu/secondary-cache.js/blob/7d2e268/src/lru-cache.d.ts#L15)
 
 ___
 
@@ -50,4 +50,4 @@ the default expires time (millisecond), defaults to no expires time(<=0).
 
 #### Defined in
 
-[lru-cache.d.ts:11](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-cache.d.ts#L11)
+[lru-cache.d.ts:11](https://github.com/snowyu/secondary-cache.js/blob/7d2e268/src/lru-cache.d.ts#L11)
