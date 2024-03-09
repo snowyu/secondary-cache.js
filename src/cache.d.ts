@@ -125,6 +125,14 @@ export class Cache extends LRUCache {
   freeLRU();
   forEachFixed(callback: (value: any, id: any, thisArg: any)=>void, thisArg?: any): void;
   reset(options?: ICacheOptions|number): Cache;
+  setDefaultOptionsLRU(options?: ILRUCacheOptions|number);
+
+  /**
+   * Sets the default options for Cache.
+   * @param options - The options for Cache, which can be of type ICacheOptions or number.
+   *                  If the options is a number, it represents the maxFixedCapacity and maxCapacity of the cache
+   */
+  setDefaultOptions(options?: ICacheOptions|number);
 }
 
 export default Cache;

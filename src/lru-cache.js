@@ -110,6 +110,7 @@ LRUCache.prototype.set = function(id, value, expires) {
     } else {
       expires = undefined;
     }
+    this.emit('before_' + event, id, value, oldValue);
     item = new LRUCacheItem(id, value, expires);
     this._cacheLRU[id] = item;
     if (this._lruQueue) {
@@ -138,20 +139,7 @@ LRUCache.prototype.clear = function() {
 };
 
 LRUCache.prototype.reset = function(options) {
-  if (options >= 0 || options < 0) {
-    this.maxCapacity = options;
-    this.maxAge = 0;
-    this.cleanInterval = 0;
-  } else if (options) {
-    this.maxCapacity = options.capacity || MAX_CAPACITY;
-    this.maxAge = options.expires;
-    this.cleanInterval = options.cleanInterval;
-    if (this.cleanInterval > 0) {
-      this.cleanInterval = this.cleanInterval * 1000;
-    }
-  } else {
-    this.maxCapacity = MAX_CAPACITY;
-  }
+  this.setDefaultOptions(options);
   return this.clear();
 };
 
@@ -198,6 +186,27 @@ LRUCache.prototype.clearExpires = function() {
     }
   }
   return this.lastCleanTime = Date.now();
+};
+
+LRUCache.prototype.setDefaultOptions = function(options) {
+  if (options >= 0 || options < 0) {
+    this.maxCapacity = options;
+    this.maxAge = 0;
+    this.cleanInterval = 0;
+  } else if (options) {
+    this.maxCapacity = options.capacity || MAX_CAPACITY;
+    this.maxAge = options.expires;
+    this.cleanInterval = options.cleanInterval;
+    if (this.cleanInterval > 0) {
+      this.cleanInterval = this.cleanInterval * 1000;
+    }
+  } else {
+    this.maxCapacity = MAX_CAPACITY;
+  }
+
+  if (this._lruQueue && this._lruQueue.maxCapacity !== this.maxCapacity) {
+    this._lruQueue.maxCapacity = this.maxCapacity;
+  }
 };
 
 export default LRUCache;

@@ -274,10 +274,35 @@ describe("Cache", function() {
       cache.has('key').should.be["false"];
       cache.hasFixed('key').should.be["false"];
     });
+    it('should listen to "before_add" event', function() {
+      const expected = {key: Math.random(), key2: Math.random()};
+      cache.size=0
+      cache.on('before_add', function(key, value) {
+        const target=this.target
+        if (target.size >= 2) {
+          target.clear();
+          target.size = 0;
+        }
+        target.size++
+        value.should.be.equal(expected[key]);
+      });
+      Object.keys(expected).forEach(function(key) {
+        cache.set(key, expected[key], {
+          fixed: true
+        });
+        cache.getFixed(key).should.be.equal(expected[key]);
+      })
+      cache.size.should.be.equal(2)
+      cache.set('key3', 124, {
+        fixed: true
+      });
+      cache.getFixed('key3').should.be.equal(124);
+      cache.fixedCapacity.should.be.equal(1)
+    });
   });
   describe("Events on LRU Cache", function() {
     var cache;
-    cache = Cache(2);
+    cache = Cache(6);
     it('should listen to "add" event', function(done) {
       var expected;
       expected = Math.random();
@@ -314,6 +339,29 @@ describe("Cache", function() {
       });
       cache.del('key');
       cache.has('key').should.be["false"];
+    });
+    it('should listen to "before_add" event', function() {
+      const expected = {key: Math.random(), key2: Math.random()};
+      cache.size=0
+      cache.on('before_add', function(key, value) {
+        const target=this.target
+        if (target.size >= 2) {
+          target.clear();
+          target.size = 0;
+        }
+        target.size++
+        value.should.be.equal(expected[key]);
+      });
+      Object.keys(expected).forEach(function(key) {
+        cache.set(key, expected[key]);
+        cache.get(key).should.be.equal(expected[key]);
+      })
+      cache.size.should.be.equal(2)
+      cache._lruQueue.length.should.be.equal(2)
+      cache.set('key3', 124);
+      cache.fixedCapacity.should.be.equal(0)
+      cache.size.should.be.equal(1)
+      cache._lruQueue.length.should.be.equal(1)
     });
   });
   describe("MaxAge(options.expires) Cache", function() {

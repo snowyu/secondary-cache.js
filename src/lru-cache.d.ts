@@ -178,6 +178,13 @@ export class LRUCache {
    *   cache.clearExpires(); // removes all expires items from the cache
    */
   clearExpires();
+
+  /**
+   * Sets the default options for LRUCache.
+   * @param options - The options for LRUCache, which can be of type ILRUCacheOptions or number.
+   *                  If the options is a number, it represents the maxCapacity of the cache
+   */
+  setDefaultOptions(options?: ILRUCacheOptions|number);
 }
 
 export default LRUCache;

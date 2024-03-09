@@ -86,9 +86,10 @@ Cache.prototype.setFixed = function(id, value) {
     if (this.maxFixedCapacity > 0 && this.fixedCapacity >= this.maxFixedCapacity) {
       throw new Error('max capacity exceed on the fixed cache.');
     }
-    this.fixedCapacity++;
     event = 'add';
   }
+  this.emit('before_' + event, id, value, oldValue)
+  if (event[0] === 'a') { this.fixedCapacity++ }
   this._cache[id] = value;
   return this.emit(event, id, value, oldValue);
 };
@@ -138,12 +139,7 @@ Cache.prototype.clean = Cache.prototype.clear;
 Cache.prototype.resetLRU = LRUCache.prototype.reset;
 
 Cache.prototype.reset = function(options) {
-  if (options > 0) {
-    this.maxFixedCapacity = 0;
-  } else if (options) {
-    this.maxFixedCapacity = options.fixedCapacity;
-  }
-  this.resetLRU(options);
+  this.setDefaultOptions(options);
   return this.clear();
 };
 
@@ -173,5 +169,16 @@ Cache.prototype.forEachFixed = function(callback, thisArg) {
 };
 
 Cache.prototype.forEachLRU = LRUCache.prototype.forEach;
+
+Cache.prototype.setDefaultOptionsLRU = LRUCache.prototype.setDefaultOptions;
+
+Cache.prototype.setDefaultOptions = function(options) {
+  if (options > 0) {
+    this.maxFixedCapacity = 0;
+  } else if (options) {
+    this.maxFixedCapacity = options.fixedCapacity;
+  }
+  this.setDefaultOptionsLRU(options);
+};
 
 export default Cache

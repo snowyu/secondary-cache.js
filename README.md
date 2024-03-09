@@ -17,6 +17,8 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
       disable clean in the background if it's value is less than or equal 0.
   * events:
+    * `'before_add'`: triggle on a new key before added to cache.
+    * `'before_update'`:triggle on a key before updated to cache.
     * `'add'`: triggle on a new key added to cache.
     * `'update'`:triggle on a key updated to cache.
     * `'del'`: triggle on a key removed from cache.
@@ -31,6 +33,8 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
       disable clean in the background if it's value is less than or equal 0.
   * events:
+    * `'before_add'`: triggle on a new key before added to cache.
+    * `'before_update'`:triggle on a key before updated to cache.
     * `'add'`: triggle on a new key added to cache.
     * `'update'`:triggle on a key updated to cache.
     * `'del'`: triggle on a key removed from cache.
@@ -47,6 +51,23 @@ the secondary LRU cache only available set the capacity of options or the key's 
 import {Cache, LRUCache} from 'secondary-cache'
 
 cache = new Cache()
+
+// track storage size
+cache.maxSize = 0
+cache.on('before_add', function(key, value) {
+  const cache = this.target
+  if (cache.maxSize > MAX_SIZE) {
+    cache.clear();
+    cache.maxSize = 0;
+  }
+  cache.maxSize += sizeCalculation(value, key)
+})
+
+// clean up when objects are evicted from the cache
+cache.on('del', function(key, value){
+  freeFromMemory(value)
+})
+
 cache.set('key', 'value', {fixed:true}) // put it into fixed capacity storage.
 cache.get('key')
 
@@ -54,6 +75,7 @@ cache.set('expiresKey', 'value', 1000) // expired after 1 second
 
 //or only use LRU Cache
 cache = new LRUCache(1000)
+
 ...
 ```
 
@@ -170,3 +192,6 @@ Adds a listener for the specified event.
 
 free the first fixed cache and the secondary LRU cache.
 
+### cache.setDefaultOptions(options: ICacheOptions|capacity);
+
+Sets the default options for Cache.
