@@ -181,4 +181,8 @@ Cache.prototype.setDefaultOptions = function(options) {
   this.setDefaultOptionsLRU(options);
 };
 
+Cache.prototype.length = function() {
+  return this.fixedCapacity + Object.keys(this._cacheLRU).length;
+};
+
 export default Cache

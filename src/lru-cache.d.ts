@@ -185,6 +185,11 @@ export class LRUCache {
    *                  If the options is a number, it represents the maxCapacity of the cache
    */
   setDefaultOptions(options?: ILRUCacheOptions|number);
+  /**
+   * Get the number of items in the cache.
+   * @returns {number} The number of items in the LRUCache.
+   */
+  length(): number;
 }
 
 export default LRUCache;

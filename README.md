@@ -195,3 +195,7 @@ free the first fixed cache and the secondary LRU cache.
 ### cache.setDefaultOptions(options: ICacheOptions|capacity);
 
 Sets the default options for Cache.
+
+### cache.length()
+
+return the number of items in the FixedCache and LRUCache.

@@ -70,7 +70,9 @@ describe("Cache", function() {
         v = pairs[k];
         cache.get(k).should.be.equal(v);
       }
+      cache.length().should.be.equal(Object.keys(pairs).length);
       cache.clear();
+      cache.length().should.be.equal(0);
       for (k in pairs) {
         should.not.exist(cache.get(k));
       }
@@ -125,6 +127,7 @@ describe("Cache", function() {
       cache.setFixed('key', value);
       cache.get('key').should.be.equal(value);
       cache.getFixed('key').should.be.equal(value);
+      cache.length().should.be.equal(1);
     });
     it('should add to the first level fixed cache via .set with options.fixed=true', function() {
       var value;
@@ -139,7 +142,12 @@ describe("Cache", function() {
     });
     it('should set to the first level cache if the key is exists in it', function() {
       var oldValue, result, value;
-      value = Math.random();
+      cache.clear();
+      oldValue = Math.random();
+      cache.set('key', oldValue, {
+        fixed: true
+      });
+      value = oldValue+1;
       oldValue = cache.get('key');
       should.exist(oldValue);
       cache.set('key', value);
@@ -172,6 +180,14 @@ describe("Cache", function() {
       cache.has("key").should.not.be["true"];
       cache.del("key").should.be["false"];
     });
+    it('should length fixed cache and lru cache', function() {
+      cache.set('key', 123, {fixed: true});
+      cache.set('k', 123, {fixed: true});
+      cache.set('key2', 1);
+      cache.set('key3', 5);
+      cache.length().should.be.equal(4);
+      cache.fixedCapacity.should.be.equal(2);
+    });
   });
   describe("Fixed Cache with capacity", function() {
     var cache;
@@ -195,6 +211,7 @@ describe("Cache", function() {
       cache.set('a', 'A');
       cache.set('b', 'B');
       cache.set('c', 'C');
+      cache.length().should.be.equal(2);
       cache.get('c').should.be.equal('C');
       cache.get('b').should.be.equal('B');
       should.not.exist(cache.get('a'));

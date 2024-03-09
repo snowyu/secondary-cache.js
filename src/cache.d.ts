@@ -133,6 +133,11 @@ export class Cache extends LRUCache {
    *                  If the options is a number, it represents the maxFixedCapacity and maxCapacity of the cache
    */
   setDefaultOptions(options?: ICacheOptions|number);
+  /**
+   * Get the number of items in the cache.
+   * @returns {number} The number of items in the FixedCache and LRUCache.
+   */
+  length(): number;
 }
 
 export default Cache;

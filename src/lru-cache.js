@@ -209,4 +209,8 @@ LRUCache.prototype.setDefaultOptions = function(options) {
   }
 };
 
+LRUCache.prototype.length = function() {
+  return Object.keys(this._cacheLRU).length;
+};
+
 export default LRUCache;
