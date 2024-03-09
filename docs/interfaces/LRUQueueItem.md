@@ -25,7 +25,7 @@ last used index
 
 #### Defined in
 
-[lru-queue.d.ts:13](https://github.com/snowyu/secondary-cache.js/blob/6b65a61/src/lru-queue.d.ts#L13)
+[lru-queue.d.ts:13](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-queue.d.ts#L13)
 
 ___
 
@@ -37,4 +37,4 @@ The value to store in the queue item.
 
 #### Defined in
 
-[lru-queue.d.ts:9](https://github.com/snowyu/secondary-cache.js/blob/6b65a61/src/lru-queue.d.ts#L9)
+[lru-queue.d.ts:9](https://github.com/snowyu/secondary-cache.js/blob/375d25f/src/lru-queue.d.ts#L9)

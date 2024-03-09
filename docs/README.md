@@ -18,6 +18,8 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
       disable clean in the background if it's value is less than or equal 0.
   * events:
+    * `'before_add'`: triggle on a new key before added to cache.
+    * `'before_update'`:triggle on a key before updated to cache.
     * `'add'`: triggle on a new key added to cache.
     * `'update'`:triggle on a key updated to cache.
     * `'del'`: triggle on a key removed from cache.
@@ -32,6 +34,8 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
       disable clean in the background if it's value is less than or equal 0.
   * events:
+    * `'before_add'`: triggle on a new key before added to cache.
+    * `'before_update'`:triggle on a key before updated to cache.
     * `'add'`: triggle on a new key added to cache.
     * `'update'`:triggle on a key updated to cache.
     * `'del'`: triggle on a key removed from cache.
@@ -45,17 +49,34 @@ the secondary LRU cache only available set the capacity of options or the key's 
 ## usage
 
 ```js
-Cache = require('secondary-cache')
+import {Cache, LRUCache} from 'secondary-cache'
 
-cache = Cache()
-cache.set('key', 'value', {fixed:true})
+cache = new Cache()
+
+// track storage size
+cache.maxSize = 0
+cache.on('before_add', function(key, value) {
+  const cache = this.target
+  if (cache.maxSize > MAX_SIZE) {
+    cache.clear();
+    cache.maxSize = 0;
+  }
+  cache.maxSize += sizeCalculation(value, key)
+})
+
+// clean up when objects are evicted from the cache
+cache.on('del', function(key, value){
+  freeFromMemory(value)
+})
+
+cache.set('key', 'value', {fixed:true}) // put it into fixed capacity storage.
 cache.get('key')
 
-cache.set('expireskey', 'value', 1000) //expired after 1 second
+cache.set('expiresKey', 'value', 1000) // expired after 1 second
 
 //or only use LRU Cache
-LRUCache = require('secondary-cache/lib/lru-cache')
-cache = LRUCache(1000)
+cache = new LRUCache(1000)
+
 ...
 ```
 
@@ -170,3 +191,11 @@ Adds a listener for the specified event.
 ### cache.free()
 
 free the first fixed cache and the secondary LRU cache.
+
+### cache.setDefaultOptions(options: ICacheOptions|capacity);
+
+Sets the default options for Cache.
+
+### cache.length()
+
+return the number of items in the FixedCache and LRUCache.
