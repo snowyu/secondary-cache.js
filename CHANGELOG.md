@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0-alpha.3](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2024-03-15)
+
 ## [2.0.0-alpha.2](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2024-03-15)
 
 
