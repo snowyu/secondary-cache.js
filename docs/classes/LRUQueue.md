@@ -47,7 +47,7 @@ The maximum number of items the queue can hold.
 
 #### Defined in
 
-[lru-queue.d.ts:31](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L31)
+[lru-queue.d.ts:31](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L31)
 
 ## Properties
 
@@ -59,7 +59,7 @@ most recently used to keep track of the next available position
 
 #### Defined in
 
-[lru-queue.d.ts:29](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L29)
+[lru-queue.d.ts:29](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L29)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[lru-queue.d.ts:25](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L25)
+[lru-queue.d.ts:25](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L25)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[lru-queue.d.ts:24](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L24)
+[lru-queue.d.ts:24](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L24)
 
 ## Methods
 
@@ -103,7 +103,7 @@ The item that was removed from the queue, if any.
 
 #### Defined in
 
-[lru-queue.d.ts:38](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L38)
+[lru-queue.d.ts:38](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L38)
 
 ___
 
@@ -119,7 +119,7 @@ Removes all items from the queue.
 
 #### Defined in
 
-[lru-queue.d.ts:95](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L95)
+[lru-queue.d.ts:95](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L95)
 
 ___
 
@@ -141,7 +141,7 @@ Alias for `delete()`.
 
 #### Defined in
 
-[lru-queue.d.ts:82](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L82)
+[lru-queue.d.ts:82](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L82)
 
 ___
 
@@ -163,7 +163,7 @@ Removes the given `value` from the queue.
 
 #### Defined in
 
-[lru-queue.d.ts:75](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L75)
+[lru-queue.d.ts:75](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L75)
 
 ___
 
@@ -186,7 +186,7 @@ Calls the given `callback` function for each item in the queue, in most- to leas
 
 #### Defined in
 
-[lru-queue.d.ts:90](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L90)
+[lru-queue.d.ts:90](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L90)
 
 ___
 
@@ -210,7 +210,7 @@ The value of the item that was removed from the queue, if any.
 
 #### Defined in
 
-[lru-queue.d.ts:68](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L68)
+[lru-queue.d.ts:68](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L68)
 
 ___
 
@@ -228,7 +228,7 @@ The least recently used item in the queue.
 
 #### Defined in
 
-[lru-queue.d.ts:53](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L53)
+[lru-queue.d.ts:53](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L53)
 
 ___
 
@@ -252,7 +252,7 @@ The item that was removed from the queue, if any.
 
 #### Defined in
 
-[lru-queue.d.ts:46](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L46)
+[lru-queue.d.ts:46](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L46)
 
 ___
 
@@ -268,7 +268,7 @@ Shifts the least recently used position in the queue to the first used position.
 
 #### Defined in
 
-[lru-queue.d.ts:100](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L100)
+[lru-queue.d.ts:100](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L100)
 
 ___
 
@@ -290,4 +290,4 @@ Moves the given `value` to the most recently used position in the queue.
 
 #### Defined in
 
-[lru-queue.d.ts:60](https://github.com/snowyu/secondary-cache.js/blob/83cecaf/src/lru-queue.d.ts#L60)
+[lru-queue.d.ts:60](https://github.com/snowyu/secondary-cache.js/blob/3f04feb/src/lru-queue.d.ts#L60)
