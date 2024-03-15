@@ -1,3 +1,5 @@
+// @sourceType: module
+
 import {Cache} from './cache'
 
 export * from './cache'
