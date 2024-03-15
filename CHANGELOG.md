@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0-alpha.2](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2024-03-15)
+
+
+### Bug Fixes
+
+* webpack5 Module parse failed: 'import' and 'export' may appear only with 'sourceType: module' ([83cecaf](https://github.com/snowyu/secondary-cache.js/commit/83cecaf946c031b9ec82544c1e6165f1a96029fe))
+
 ## [2.0.0-alpha.1](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2024-03-09)
 
 
