@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "abstract-object": "^3.0.0-alpha.4",
-    "events-ex": "^2.0.0-alpha.6",
+    "events-ex": "^2.0.0-alpha.13",
     "inherits-ex": "^2.1.0-alpha.12",
     "util-ex": "^2.0.0-alpha.10"
   },
