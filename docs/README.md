@@ -1,6 +1,6 @@
 secondary-cache / [Exports](modules.md)
 
-## Secondary Cache [![Build Status](https://img.shields.io/travis/snowyu/secondary-cache.js/master.svg)](http://travis-ci.org/snowyu/secondary-cache.js) [![npm](https://img.shields.io/npm/v/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![downloads](https://img.shields.io/npm/dm/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![license](https://img.shields.io/npm/l/secondary-cache.svg)](https://npmjs.org/package/secondary-cache)
+## Secondary Cache [![npm](https://img.shields.io/npm/v/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![downloads](https://img.shields.io/npm/dm/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![license](https://img.shields.io/npm/l/secondary-cache.svg)](https://npmjs.org/package/secondary-cache)
 
 It can support secondary cache mechanism. the first level cache is fixed memory-resident always with the highest priority.
 the second level is the LRU cache.

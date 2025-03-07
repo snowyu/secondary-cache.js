@@ -19,7 +19,7 @@ the cache item expires time(milliseconds)
 
 #### Defined in
 
-[cache.d.ts:18](https://github.com/snowyu/secondary-cache.js/blob/f66cf26/src/cache.d.ts#L18)
+[cache.d.ts:18](https://github.com/snowyu/secondary-cache.js/blob/8f922bc/src/cache.d.ts#L18)
 
 ___
 
@@ -31,4 +31,4 @@ whether store into fixed capacity storage.
 
 #### Defined in
 
-[cache.d.ts:14](https://github.com/snowyu/secondary-cache.js/blob/f66cf26/src/cache.d.ts#L14)
+[cache.d.ts:14](https://github.com/snowyu/secondary-cache.js/blob/8f922bc/src/cache.d.ts#L14)
