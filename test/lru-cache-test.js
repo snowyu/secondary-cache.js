@@ -149,6 +149,16 @@ describe("LRUCache", function() {
   describe("Events on LRU Cache", function() {
     var cache;
     cache = Cache(2);
+    it('should listen to "before_add" event', function(done) {
+      var expected;
+      expected = Math.random();
+      cache.on('before_add', function(key, value) {
+        key.should.be.equal('before_add_key');
+        value.should.be.equal(expected);
+        done();
+      });
+      cache.set('before_add_key', expected);
+    });
     it('should listen to "add" event', function(done) {
       var expected;
       expected = Math.random();
@@ -158,6 +168,21 @@ describe("LRUCache", function() {
         done();
       });
       cache.set('key', expected);
+    });
+    it('should listen to "before_update" event', function(done) {
+      var newValue, oldValue;
+      newValue = Math.random();
+      oldValue = cache.get('before_add_key');
+      should.exist(oldValue);
+      cache.on('before_update', function(key, value, aOldValue) {
+        key.should.be.equal('before_add_key');
+        value.should.be.equal(newValue);
+        aOldValue.should.be.equal(oldValue);
+        done();
+      });
+      cache.set('before_add_key', newValue);
+      oldValue = cache.get('before_add_key');
+      oldValue.should.be.equal(newValue);
     });
     it('should listen to "update" event', function(done) {
       var newValue, oldValue;

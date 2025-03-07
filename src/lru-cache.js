@@ -82,13 +82,19 @@ LRUCache.prototype.get = function(id) {
 };
 
 LRUCache.prototype.set = function(id, value, expires) {
-  let event, oldValue;
+  let event;
   if (this.cleanInterval > 0 && Date.now() - this.lastCleanTime >= this.cleanInterval) {
     setImmediate(this.clearExpires);
   }
   let item = this._cacheLRU[id];
+  const oldValue = item && item.value;
   if (item !== undefined) {
-    oldValue = item.value;
+    event = 'update';
+  } else {
+    event = 'add';
+  }
+  this.emit('before_' + event, id, value, oldValue);
+  if (item !== undefined) {
     item.value = value;
     if (expires <= 0) {
       delete item.expires;
@@ -97,12 +103,10 @@ LRUCache.prototype.set = function(id, value, expires) {
     } else if (this.maxAge > 0) {
       item.expires = Date.now() + this.maxAge;
     }
-    event = 'update';
     if (this._lruQueue) {
       this._lruQueue.use(item);
     }
   } else {
-    event = 'add';
     if (expires > 0) {
       expires = Date.now() + expires;
     } else if (this.maxAge > 0) {
@@ -110,7 +114,6 @@ LRUCache.prototype.set = function(id, value, expires) {
     } else {
       expires = undefined;
     }
-    this.emit('before_' + event, id, value, oldValue);
     item = new LRUCacheItem(id, value, expires);
     this._cacheLRU[id] = item;
     if (this._lruQueue) {
