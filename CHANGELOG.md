@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.1](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0...v2.0.1) (2025-03-07)
+
+
+### Bug Fixes
+
+* before_update event not work on LRUCache ([8f922bc](https://github.com/snowyu/secondary-cache.js/commit/8f922bc50868ef6893a1773502fa38d641144053))
+
 ## [2.0.0](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0-alpha.5...v2.0.0) (2024-08-29)
 
 ## [2.0.0-alpha.5](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2024-03-29)
