@@ -6,6 +6,11 @@ export interface ILRUCacheOptions {
    */
   capacity?: number;
   /**
+   * the maximum weight of items the cache can hold. 0 means no limit.
+   * Used with weightOf function for custom capacity control (e.g., by size).
+   */
+  maxWeight?: number;
+  /**
    * the default expires time (millisecond), defaults to no expires time(<=0).
    */
   expires?: number;
@@ -13,12 +18,26 @@ export interface ILRUCacheOptions {
    * clean up expired item with a specified interval(seconds) in the background.
    */
   cleanInterval?: number;
+  /**
+   * Custom function to calculate the weight of a value.
+   * @param value - The value to calculate weight for.
+   * @param id - The id of the value.
+   * @returns The weight of the value. Return 1 for count-based capacity (default).
+   * @example
+   * // Size-based capacity (in bytes)
+   * weightOf: (value) => JSON.stringify(value).length
+   */
+  weightOf?: (value: any, id?: any) => number;
 }
 
 export interface LRUCacheItem {
   id?: any;
   value?: any;
   expires?: number;
+  /**
+   * The weight of the item for capacity control.
+   */
+  weight?: number;
 }
 
 /**
@@ -39,11 +58,14 @@ export interface LRUCacheItem {
  */
 export class LRUCache {
   maxCapacity: number;
+  maxWeight: number;
   maxAge: number;
   cleanInterval: number;
+  _totalWeight: number;
 
   _cacheLRU: Object
   _lruQueue: LRUQueue
+  _weightMap: Object
 
   /**
    *   Represents a Least Recently Used (LRU) Cache.
@@ -88,6 +110,17 @@ export class LRUCache {
    * @param id the id to check
    */
   isExists(id: any): boolean;
+
+  /**
+   * Calculate the weight of a value. Override this method to customize capacity calculation.
+   * @param value - The value to calculate weight for.
+   * @param id - The id of the value.
+   * @returns The weight of the value. Default returns 1 (count-based).
+   * @example
+   * // Size-based capacity (in bytes)
+   * cache.weightOf = (value) => JSON.stringify(value).length;
+   */
+  weightOf(value: any, id?: any): number;
 
   /**
    *   Deletes an item from the cache.

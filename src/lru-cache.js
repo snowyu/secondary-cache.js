@@ -4,20 +4,37 @@ import LruQueue from './lru-queue'
 const create = Object.create;
 const MAX_CAPACITY = 1024;
 
-function LRUCacheItem(id, value, expires) {
+function LRUCacheItem(id, value, expires, weight) {
   this.id = id;
   this.value = value;
   this.expires = expires;
+  this.weight = weight || 0;
 }
 
 export function LRUCache(options) {
   if (!(this instanceof LRUCache)) {
     return new LRUCache(options);
   }
+  this._totalWeight = 0;
   this.reset(options);
 }
 // add the event support to the LRUCache Class
 eventable(LRUCache);
+
+/**
+ * Calculate the weight of a value. Override this method to customize capacity calculation.
+ * @param {*} value - The value to calculate weight for.
+ * @param {string} id - The id of the value.
+ * @returns {number} The weight of the value. Default returns 1 (count-based).
+ */
+LRUCache.prototype.weightOf = function(value, id) {
+  // Default: return 1 (count-based, same as original behavior)
+  // Override this method to implement size-based or custom capacity control
+  if (this._weightOfFn) {
+    return this._weightOfFn(value, id);
+  }
+  return 1;
+};
 
 LRUCache.prototype.delListener = LRUCache.prototype.off;
 
@@ -36,6 +53,7 @@ LRUCache.prototype.delete = function(id, isInternal) {
   }
   const result = this._cacheLRU[id];
   if (result !== undefined) {
+    this._totalWeight -= result.weight || 0;
     delete this._cacheLRU[id];
     if (this._lruQueue && isInternal !== true) {
       this._lruQueue.delete(result);
@@ -95,7 +113,15 @@ LRUCache.prototype.set = function(id, value, expires) {
   }
   this.emit('before_' + event, id, value, oldValue);
   if (item !== undefined) {
+    // Update existing item
+    const newWeight = this.weightOf(value, id);
+    if (this.maxWeight > 0 && newWeight > this.maxWeight) {
+      throw new Error('Item weight ' + newWeight + ' exceeds maxWeight ' + this.maxWeight);
+    }
+    this._totalWeight -= item.weight || 0;
     item.value = value;
+    item.weight = newWeight;
+    this._totalWeight += newWeight;
     if (expires <= 0) {
       delete item.expires;
     } else if (expires > 0) {
@@ -107,6 +133,11 @@ LRUCache.prototype.set = function(id, value, expires) {
       this._lruQueue.use(item);
     }
   } else {
+    // Add new item
+    const weight = this.weightOf(value, id);
+    if (this.maxWeight > 0 && weight > this.maxWeight) {
+      throw new Error('Item weight ' + weight + ' exceeds maxWeight ' + this.maxWeight);
+    }
     if (expires > 0) {
       expires = Date.now() + expires;
     } else if (this.maxAge > 0) {
@@ -114,8 +145,9 @@ LRUCache.prototype.set = function(id, value, expires) {
     } else {
       expires = undefined;
     }
-    item = new LRUCacheItem(id, value, expires);
+    item = new LRUCacheItem(id, value, expires, weight);
     this._cacheLRU[id] = item;
+    this._totalWeight += weight;
     if (this._lruQueue) {
       const delItem = this._lruQueue.add(item);
       if (delItem !== undefined) {
@@ -123,12 +155,29 @@ LRUCache.prototype.set = function(id, value, expires) {
       }
     }
   }
+
+  if (this._lruQueue) {
+    // Check weight-based eviction (LRUQueue only handles capacity, LRUCache handles weight)
+    if (this.maxWeight > 0 && this._totalWeight > this.maxWeight) {
+      let popItem;
+      while (this._totalWeight > this.maxWeight && this._lruQueue.length > 0) {
+        popItem = this._lruQueue.pop();
+        if (popItem) {
+          this.del(popItem.id, true);
+        } else {
+          break;
+        }
+      }
+    }
+  }
+
   return this.emit(event, id, value, oldValue);
 };
 
 LRUCache.prototype.clear = function() {
   const oldCache = this._cacheLRU;
   this._cacheLRU = create(null);
+  this._totalWeight = 0;
   for (const k in oldCache) {
     const v = oldCache[k];
     this.emit('del', k, v.value);
@@ -153,6 +202,7 @@ LRUCache.prototype.free = function() {
     this.emit('del', k, v.value);
   }
   this._cacheLRU = null;
+  this._totalWeight = 0;
   this._lruQueue = null;
   return this.lastCleanTime = 0;
 };
@@ -196,19 +246,27 @@ LRUCache.prototype.setDefaultOptions = function(options) {
     this.maxCapacity = options;
     this.maxAge = 0;
     this.cleanInterval = 0;
+    this.maxWeight = 0;
+    this._weightOfFn = null;
   } else if (options) {
     this.maxCapacity = options.capacity || MAX_CAPACITY;
     this.maxAge = options.expires;
     this.cleanInterval = options.cleanInterval;
+    this.maxWeight = options.maxWeight || 0;
+    this._weightOfFn = options.weightOf || null;
     if (this.cleanInterval > 0) {
       this.cleanInterval = this.cleanInterval * 1000;
     }
   } else {
     this.maxCapacity = MAX_CAPACITY;
+    this.maxWeight = 0;
+    this._weightOfFn = null;
   }
 
-  if (this._lruQueue && this._lruQueue.maxCapacity !== this.maxCapacity) {
-    this._lruQueue.maxCapacity = this.maxCapacity;
+  if (this._lruQueue) {
+    if (this._lruQueue.maxCapacity !== this.maxCapacity) {
+      this._lruQueue.maxCapacity = this.maxCapacity;
+    }
   }
 };
 
