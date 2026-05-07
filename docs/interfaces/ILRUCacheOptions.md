@@ -28,7 +28,7 @@ the second LRU cache max capacity size, defaults to unlimited.
 
 #### Defined in
 
-[lru-cache.d.ts:7](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L7)
+[lru-cache.d.ts:7](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L7)
 
 ___
 
@@ -40,7 +40,7 @@ clean up expired item with a specified interval(seconds) in the background.
 
 #### Defined in
 
-[lru-cache.d.ts:20](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L20)
+[lru-cache.d.ts:20](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L20)
 
 ___
 
@@ -52,7 +52,7 @@ the default expires time (millisecond), defaults to no expires time(<=0).
 
 #### Defined in
 
-[lru-cache.d.ts:16](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L16)
+[lru-cache.d.ts:16](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L16)
 
 ___
 
@@ -65,7 +65,7 @@ Used with weightOf function for custom capacity control (e.g., by size).
 
 #### Defined in
 
-[lru-cache.d.ts:12](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L12)
+[lru-cache.d.ts:12](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L12)
 
 ___
 
@@ -101,4 +101,4 @@ The weight of the value. Return 1 for count-based capacity (default).
 
 #### Defined in
 
-[lru-cache.d.ts:30](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L30)
+[lru-cache.d.ts:30](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L30)
