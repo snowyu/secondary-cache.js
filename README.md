@@ -96,6 +96,7 @@ const lruCache = new LRUCache({
   }
 });
 lruCache.set('key', 'some data'); // weight is calculated automatically
+console.log(lruCache.totalWeight); // get total weight of all items
 // If weight exceeds maxWeight, throws Error: 'Item weight X exceeds maxWeight Y'
 ```
 

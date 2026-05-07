@@ -270,6 +270,12 @@ LRUCache.prototype.setDefaultOptions = function(options) {
   }
 };
 
+Object.defineProperty(LRUCache.prototype, 'totalWeight', {
+  get: function() {
+    return this._totalWeight;
+  }
+});
+
 LRUCache.prototype.length = function() {
   return Object.keys(this._cacheLRU).length;
 };

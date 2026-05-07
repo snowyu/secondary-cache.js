@@ -61,11 +61,16 @@ export class LRUCache {
   maxWeight: number;
   maxAge: number;
   cleanInterval: number;
-  _totalWeight: number;
 
   _cacheLRU: Object
   _lruQueue: LRUQueue
-  _weightMap: Object
+  _totalWeight: number;
+
+  /**
+   * The total weight of all items in the cache (read-only).
+   * Only meaningful when using weight-based capacity (maxWeight > 0).
+   */
+  readonly totalWeight: number;
 
   /**
    *   Represents a Least Recently Used (LRU) Cache.
