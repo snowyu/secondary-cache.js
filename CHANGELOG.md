@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.1](https://github.com/snowyu/secondary-cache.js/compare/v2.1.0...v2.1.1) (2026-05-07)
+
+
+### Bug Fixes
+
+* 完善 TypeScript 类型定义和 API 文档 ([8685512](https://github.com/snowyu/secondary-cache.js/commit/8685512983bd20d3db2ec0a281d9d127d8fe7a98))
+
 ## [2.1.0](https://github.com/snowyu/secondary-cache.js/compare/v2.0.1...v2.1.0) (2026-05-07)
 
 
