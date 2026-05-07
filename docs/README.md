@@ -13,6 +13,10 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * capacity: the second LRU cache max capacity size, defaults to 1024.
       deletes the least-recently-used items if reached the capacity.
       capacity > 0 to enable the secondary LRU cache.
+    * maxWeight: the maximum total weight of all items in the LRU cache.
+      defaults to 0 (no weight limit).
+    * weightOf: a function(value, id) to calculate the weight of a value.
+      defaults to returning 1 (count-based).
     * expires: the default expires time (milliscond), defaults to no expires time(<=0).
       it will be put into LRU Cache if has expires time
     * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
@@ -29,6 +33,12 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * capacity: the LRU cache max capacity size, defaults to 1024.
       deletes the least-recently-used items if reached the capacity.
       capacity > 0 to enable the LRU.
+    * maxWeight: the maximum total weight of all items in cache.
+      defaults to 0 (no weight limit). When weight limit is exceeded,
+      LRU items are evicted. If a single item's weight exceeds maxWeight,
+      an error is thrown.
+    * weightOf: a function(value, id) to calculate the weight of a value.
+      defaults to returning 1 (count-based). Override to implement size-based limits.
     * expires: the default expires time (milliscond), defaults to no expires time(<=0).
       it will be put into LRU Cache if has expires time
     * cleanInterval: clean up expired item with a specified interval(seconds) in the background.
@@ -77,7 +87,18 @@ cache.set('expiresKey', 'value', 1000) // expired after 1 second
 //or only use LRU Cache
 cache = new LRUCache(1000)
 
-...
+// Weight-based LRU Cache
+const lruCache = new LRUCache({
+  maxWeight: 1000, // total weight limit
+  capacity: 0,     // unlimited by count
+  weightOf: function(value, key) {
+    // Calculate weight based on value size (e.g., byte length)
+    return Buffer.byteLength(JSON.stringify(value), 'utf8');
+  }
+});
+lruCache.set('key', 'some data'); // weight is calculated automatically
+console.log(lruCache.totalWeight); // get total weight of all items
+// If weight exceeds maxWeight, throws Error: 'Item weight X exceeds maxWeight Y'
 ```
 
 ### cache.set(key, value[,options|expires])

@@ -9,6 +9,7 @@
 - [expires](LRUCacheItem.md#expires)
 - [id](LRUCacheItem.md#id)
 - [value](LRUCacheItem.md#value)
+- [weight](LRUCacheItem.md#weight)
 
 ## Properties
 
@@ -18,7 +19,7 @@
 
 #### Defined in
 
-[lru-cache.d.ts:21](https://github.com/snowyu/secondary-cache.js/blob/8f922bc/src/lru-cache.d.ts#L21)
+[lru-cache.d.ts:36](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L36)
 
 ___
 
@@ -28,7 +29,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:19](https://github.com/snowyu/secondary-cache.js/blob/8f922bc/src/lru-cache.d.ts#L19)
+[lru-cache.d.ts:34](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L34)
 
 ___
 
@@ -38,4 +39,16 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:20](https://github.com/snowyu/secondary-cache.js/blob/8f922bc/src/lru-cache.d.ts#L20)
+[lru-cache.d.ts:35](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L35)
+
+___
+
+### weight
+
+• `Optional` **weight**: `number`
+
+The weight of the item for capacity control.
+
+#### Defined in
+
+[lru-cache.d.ts:40](https://github.com/snowyu/secondary-cache.js/blob/220b648/src/lru-cache.d.ts#L40)
