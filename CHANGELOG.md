@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.0](https://github.com/snowyu/secondary-cache.js/compare/v2.0.1...v2.1.0) (2026-05-07)
+
+
+### Features
+
+* add totalWeight read-only property to LRUCache ([220b648](https://github.com/snowyu/secondary-cache.js/commit/220b648aa7b708c7bce2dfe07d6548cb4a7de1e0))
+* add weight-based capacity limit for LRUCache ([c980792](https://github.com/snowyu/secondary-cache.js/commit/c98079293a3b62bcae5c39bb4ceb9503bb480f32))
+
 ## [2.0.1](https://github.com/snowyu/secondary-cache.js/compare/v2.0.0...v2.0.1) (2025-03-07)
 
 
