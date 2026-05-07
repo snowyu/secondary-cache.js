@@ -85,6 +85,7 @@ export class LRUQueue {
    * Calls the given `callback` function for each item in the queue, in most- to least-recently used order.
    *
    * @param callback - The function to call for each item in the queue.
+   *                   The second parameter will be `thisArg` if provided, otherwise the queue itself.
    * @param [thisArg=this] - The value of `this` to use when calling the `callback` function.
    */
   forEach(callback: (item: LRUQueueItem, thisArg: any)=>void, thisArg?: any): void;

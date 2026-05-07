@@ -1,6 +1,5 @@
 ## Secondary Cache [![npm](https://img.shields.io/npm/v/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![downloads](https://img.shields.io/npm/dm/secondary-cache.svg)](https://npmjs.org/package/secondary-cache) [![license](https://img.shields.io/npm/l/secondary-cache.svg)](https://npmjs.org/package/secondary-cache)
 
-
 It can support secondary cache mechanism. the first level cache is fixed memory-resident always with the highest priority.
 the second level is the LRU cache.
 
@@ -49,10 +48,84 @@ the secondary LRU cache only available set the capacity of options or the key's 
     * `'update'`:triggle on a key updated to cache.
     * `'del'`: triggle on a key removed from cache.
 
+### LRUCache API
+
+* LRUCache(options|capacity): the LRU cache Class with expires supports.
+  * constructor(options?): creates a new LRUCache instance.
+    * options object:
+      * capacity: the LRU cache max capacity size, defaults to 1024.
+      * maxWeight: the maximum total weight of all items in cache.
+      * weightOf: a function(value, id) to calculate the weight of a value.
+      * expires: the default expires time (millisecond).
+      * cleanInterval: clean up expired item with a specified interval(seconds).
+
+* lruCache.set(id, value, [expires])
+  * add/update a key-value pair. returns the cache instance.
+
+* lruCache.get(id)
+  * get value by id, updates "recently used"-ness.
+
+* lruCache.peek(id)
+  * get value by id, does NOT update "recently used"-ness.
+
+* lruCache.has(id)
+  * aliases: isExist, isExists
+  * check if id exists in cache (and not expired).
+
+* lruCache.delete(id)
+  * alias: del
+  * delete a key from cache, returns true if deleted.
+
+* lruCache.clear()
+  * clear all items, returns the cache instance.
+
+* lruCache.free()
+  * free all memory used by the cache.
+
+* lruCache.forEach(callback[, thisArg])
+  * iterate over each item. callback receives (value, id, cache).
+
+* lruCache.reset(options|capacity)
+  * clear cache and apply new options, returns the cache instance.
+
+* lruCache.length()
+  * return the number of items in cache.
+
+* lruCache.isExpired(item)
+  * check if item is expired, removes it if expired. returns boolean.
+
+* lruCache.clearExpires()
+  * delete all expired items from cache.
+
+* lruCache.weightOf(value, id)
+  * calculate weight of a value. defaults to return 1 (count-based).
+  * override to implement custom weight calculation (e.g., byte size).
+
+* lruCache.on(event, listener)
+* lruCache.off(event, listener)
+* lruCache.delListener(event, listener)
+  * add/remove event listeners.
+
+* lruCache.totalWeight (readonly property)
+  * the total weight of all items in cache (only meaningful when maxWeight > 0).
+
+### LRUQueue API
+
 * LRUQueue(capacity): the LRU queue class for object queue item.
-  * add(id): add the id object to the queue.
+  * add(id): add the id object to the queue. Returns the removed item if capacity exceeded.
+  * push(id): alias of add.
+  * pop(): removes and returns the least recently used item from the queue.
   * use(id): make the id object in the queue as most recently used items first.
+  * hit(value): check if value exists in queue, add if not, or move to most recently used.
   * del(id): del the id object from the queue.
+  * delete(id): alias of del.
+  * clear(): removes all items from the queue.
+  * shiftLU(): shifts the least recently used position to the first used position.
+  * forEach(callback[, thisArg]): iterates over each item in the queue.
+    * callback receives (item, thisArg). If thisArg is provided, it's passed as second param; otherwise the queue itself is passed.
+  * Properties:
+    * maxCapacity: the maximum capacity of the queue.
+    * length: the current number of items in the queue.
   * note: it used the `'lu'` property of the object queue item.
 
 ## usage
@@ -83,7 +156,7 @@ cache.get('key')
 
 cache.set('expiresKey', 'value', 1000) // expired after 1 second
 
-//or only use LRU Cache
+// or only use LRU Cache
 cache = new LRUCache(1000)
 
 // Weight-based LRU Cache
@@ -177,12 +250,15 @@ Or in insertion order.
 
 alias: delete
 
-Deletes a key out of the cache.
+Deletes a key out of the cache (searches both fixed and LRU caches).
 
 ### cache.delLRU(key)
+alias: deleteLRU
+deletes a key from the secondary level LRU cache.
 
 ### cache.delFixed(key)
-
+alias: deleteFixed
+deletes a key from the first level fixed cache.
 
 ### cache.reset(options|capacity)
 
@@ -213,10 +289,33 @@ Adds a listener for the specified event.
 
 free the first fixed cache and the secondary LRU cache.
 
-### cache.setDefaultOptions(options: ICacheOptions|capacity);
+### cache.setDefaultOptions(options: ICacheOptions|capacity)
 
 Sets the default options for Cache.
 
 ### cache.length()
 
 return the number of items in the FixedCache and LRUCache.
+
+### cache.hasFixed(key)
+check if key exists in the first level fixed cache.
+
+### cache.hasLRU(key)
+check if key exists in the secondary level LRU cache.
+
+### cache.deleteLRU(key)
+alias: delLRU
+delete a key from the secondary level LRU cache.
+
+### cache.deleteFixed(key)
+alias: delFixed
+delete a key from the first level fixed cache.
+
+### cache.freeLRU()
+free the secondary level LRU cache.
+
+### cache.setDefaultOptions(options|capacity)
+sets the default options for the cache.
+
+### cache.setDefaultOptionsLRU(options|capacity)
+sets the default options for the secondary level LRU cache.

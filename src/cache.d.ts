@@ -51,10 +51,10 @@ export class Cache extends LRUCache {
    * @example
    * const exists = cache.hasFixed("someItem");
    */
-  hasFixed(id): boolean;
-  hasLRU(id): boolean;
-  deleteLRU(id, isInternal?: boolean): boolean;
-  delLRU(id, isInternal?: boolean): boolean;
+  hasFixed(id: any): boolean;
+  hasLRU(id: any): boolean;
+  deleteLRU(id: any, isInternal?: boolean): boolean;
+  delLRU(id: any, isInternal?: boolean): boolean;
   /**
    * Removes an item from the fixed capacity cache.
    * @param {string} id - The identifier of the item to remove.
@@ -62,7 +62,7 @@ export class Cache extends LRUCache {
    * @example
    * const removed = cache.deleteFixed("someItem");
    */
-  deleteFixed(id): boolean;
+  deleteFixed(id: any): boolean;
   /**
    * Alias of deleteFixed
    * @param {string} id - The identifier of the item to remove.
@@ -70,7 +70,7 @@ export class Cache extends LRUCache {
    * @example
    * const removed = cache.delFixed("someItem");
    */
-  delFixed(id): boolean;
+  delFixed(id: any): boolean;
 
   /**
    * Removes an item from the cache.
@@ -79,8 +79,8 @@ export class Cache extends LRUCache {
    * @example
    * const removed = cache.delete("someItem");
    */
-  delete(id): boolean;
-  del(id): boolean;
+  delete(id: any): boolean;
+  del(id: any): boolean;
 
   /**
    * Retrieves the value of an item from the fixed capacity cache.
@@ -89,9 +89,9 @@ export class Cache extends LRUCache {
    * @example
    * const value = cache.getFixed("someItem");
    */
-  getFixed(id): any;
-  getLRU(id): any;
-  peekLRU(id): any;
+  getFixed(id: any): any;
+  getLRU(id: any): any;
+  peekLRU(id: any): any;
 
   /**
    * Adds or updates an item in the fixed capacity cache.
@@ -101,8 +101,8 @@ export class Cache extends LRUCache {
    * @example
    * const added = cache.setFixed("someItem", "someValue");
    */
-  setFixed(id, value);
-  setLRU(id, value, expires?: number);
+  setFixed(id: any, value: any): void;
+  setLRU(id: any, value: any, expires?: number): void;
 
   /**
    * Adds or updates an item in the cache.
@@ -115,24 +115,24 @@ export class Cache extends LRUCache {
    * @example
    * const added = cache.set("someItem", "someValue", { fixed: true });
    */
-  set(id, value, options?: ICacheSetOptions|number);
+  set(id: any, value: any, options?: ICacheSetOptions|number): void;
 
   /**
    * Frees up the LRU memory used by the cache.
    * @example
    * cache.freeLRU();
    */
-  freeLRU();
+  freeLRU(): void;
   forEachFixed(callback: (value: any, id: any, thisArg: any)=>void, thisArg?: any): void;
   reset(options?: ICacheOptions|number): Cache;
-  setDefaultOptionsLRU(options?: ILRUCacheOptions|number);
+  setDefaultOptionsLRU(options?: ILRUCacheOptions|number): void;
 
   /**
    * Sets the default options for Cache.
    * @param options - The options for Cache, which can be of type ICacheOptions or number.
    *                  If the options is a number, it represents the maxFixedCapacity and maxCapacity of the cache
    */
-  setDefaultOptions(options?: ICacheOptions|number);
+  setDefaultOptions(options?: ICacheOptions|number): void;
   /**
    * Get the number of items in the cache.
    * @returns {number} The number of items in the FixedCache and LRUCache.

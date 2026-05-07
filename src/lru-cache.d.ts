@@ -62,8 +62,11 @@ export class LRUCache {
   maxAge: number;
   cleanInterval: number;
 
+  /** @internal */
   _cacheLRU: Object
+  /** @internal */
   _lruQueue: LRUQueue
+  /** @internal */
   _totalWeight: number;
 
   /**
@@ -181,7 +184,7 @@ export class LRUCache {
    *   cache.set('key1', 'value1', 5000); // add an item with expiration time of 5 seconds
    *   cache.set('key2', 'value2'); // add an item with default expiration time
    */
-  set(id: any, value: any, expires?: number);
+  set(id: any, value: any, expires?: number): any;
 
   /**
    *   Deletes all items from the cache.
@@ -194,11 +197,11 @@ export class LRUCache {
 
   /**
    *   Frees up the memory used by the cache.
-   *   @returns {number} - Returns the timestamp of the last cleanup operation.
+   *   @returns {void} - Returns nothing.
    *   @example
    *   cache.free(); // frees up the memory used by the cache
    */
-  free();
+  free(): void;
 
   /**
    *   Iterates over each item in the cache and calls a function for each item.
@@ -215,14 +218,14 @@ export class LRUCache {
    *   @example
    *   cache.clearExpires(); // removes all expires items from the cache
    */
-  clearExpires();
+  clearExpires(): void;
 
   /**
    * Sets the default options for LRUCache.
    * @param options - The options for LRUCache, which can be of type ILRUCacheOptions or number.
    *                  If the options is a number, it represents the maxCapacity of the cache
    */
-  setDefaultOptions(options?: ILRUCacheOptions|number);
+  setDefaultOptions(options?: ILRUCacheOptions|number): void;
   /**
    * Get the number of items in the cache.
    * @returns {number} The number of items in the LRUCache.

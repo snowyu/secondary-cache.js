@@ -22,6 +22,7 @@ rules:
   "@typescript-eslint/no-this-alias": off
   "@typescript-eslint/no-invalid-this": off
   "prefer-exponentiation-operator": off
+  object-shorthand: off
   # curly: [error, multi, consistent]
   # curly: [error, multi-line]
   # max-statements-per-line: off
