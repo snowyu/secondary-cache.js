@@ -104,14 +104,14 @@ Cache.prototype.set = function(id, value, options) {
     }
     expires = options > 0 ? options : options.expires;
     if (expires > 0) {
+      // Remove from fixed cache before adding to LRU cache with expiry
       delete this._cache[id];
     }
   }
   if (expires > 0 || !hasOwnProperty.call(this._cache, id)) {
     return this.setLRU(id, value, expires);
-  } else {
-    return this.setFixed(id, value);
   }
+  return this.setFixed(id, value);
 };
 
 Cache.prototype.clearFixed = function() {

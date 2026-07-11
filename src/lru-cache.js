@@ -49,7 +49,7 @@ LRUCache.prototype.isExists = LRUCache.prototype.has;
 
 LRUCache.prototype.delete = function(id, isInternal) {
   if (this.cleanInterval > 0 && Date.now() - this.lastCleanTime >= this.cleanInterval) {
-    setImmediate(this.clearExpires);
+    setImmediate(this.clearExpires.bind(this));
   }
   const result = this._cacheLRU[id];
   if (result !== undefined) {
@@ -71,7 +71,7 @@ LRUCache.prototype.isExpired = function(item) {
   let expired = item.expires;
   expired = expired > 0 && Date.now() >= expired;
   if (this.cleanInterval > 0 && Date.now() - this.lastCleanTime >= this.cleanInterval) {
-    setImmediate(this.clearExpires);
+    setImmediate(this.clearExpires.bind(this));
   } else if (expired) {
     this.del(item.id);
   }
@@ -102,7 +102,7 @@ LRUCache.prototype.get = function(id) {
 LRUCache.prototype.set = function(id, value, expires) {
   let event;
   if (this.cleanInterval > 0 && Date.now() - this.lastCleanTime >= this.cleanInterval) {
-    setImmediate(this.clearExpires);
+    setImmediate(this.clearExpires.bind(this));
   }
   let item = this._cacheLRU[id];
   const oldValue = item && item.value;
@@ -209,7 +209,7 @@ LRUCache.prototype.free = function() {
 
 LRUCache.prototype.forEach = function(callback, thisArg) {
   if (this.cleanInterval > 0 && Date.now() - this.lastCleanTime >= this.cleanInterval) {
-    setImmediate(this.clearExpires);
+    setImmediate(this.clearExpires.bind(this));
   }
   thisArg || (thisArg = this);
   if (this._lruQueue) {

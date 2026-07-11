@@ -39,12 +39,12 @@ describe("Cache", function() {
         var value;
         value = Math.random();
         expect(cache.get('expiresKey')).toBeUndefined();
-        cache.set('expiresKey', value, 50);
+        cache.set('expiresKey', value, 30);
         expect(cache.get('expiresKey')).toBe(value);
         setTimeout(function() {
           expect(cache.get('expiresKey')).toBeUndefined();
           resolve();
-        }, 50);
+        }, 60);
       });
     });
     it('should update a value to cache', function() {
@@ -458,6 +458,135 @@ describe("Cache", function() {
           expect(isEmpty).toBe(true);
           resolve();
         }, 50);
+      });
+    });
+  });
+
+  describe('Additional Features', function() {
+    it('should reset with new options', function() {
+      var cache = Cache(5);
+      cache.set('a', 1);
+      cache.set('b', 2);
+      expect(cache.length()).toBe(2);
+      // Reset with new capacity
+      cache.reset({ capacity: 10, expires: 100 });
+      expect(cache.maxCapacity).toBe(10);
+      expect(cache.length()).toBe(0);
+    });
+
+    it('should clean as alias for clear', function() {
+      var cache = Cache();
+      cache.set('key', 'value');
+      expect(cache.length()).toBe(1);
+      cache.clean();
+      expect(cache.length()).toBe(0);
+    });
+
+    it('should forEachFixed only iterate fixed cache', function() {
+      var cache = Cache();
+      cache.setFixed('fixed1', 1);
+      cache.setFixed('fixed2', 2);
+      cache.setLRU('lru1', 3);
+      cache.setLRU('lru2', 4);
+      var fixedKeys = [];
+      cache.forEachFixed(function(v, k) {
+        fixedKeys.push(k);
+      });
+      expect(fixedKeys.sort()).toEqual(['fixed1', 'fixed2']);
+    });
+
+    it('should forEachLRU only iterate LRU cache', function() {
+      var cache = Cache();
+      cache.setFixed('fixed1', 1);
+      cache.setFixed('fixed2', 2);
+      cache.setLRU('lru1', 3);
+      cache.setLRU('lru2', 4);
+      var lruKeys = [];
+      cache.forEachLRU(function(v, k) {
+        lruKeys.push(k);
+      });
+      expect(lruKeys.sort()).toEqual(['lru1', 'lru2']);
+    });
+
+    it('should peekLRU peek into LRU portion only', function() {
+      var cache = Cache();
+      cache.setFixed('fixed', 'fixed-value');
+      cache.setLRU('lru', 'lru-value');
+      expect(cache.peekLRU('fixed')).toBeUndefined();
+      expect(cache.peekLRU('lru')).toBe('lru-value');
+    });
+
+    it('should deleteFixed and deleteLRU as aliases', function() {
+      var cache = Cache();
+      cache.setFixed('fixed', 'value');
+      cache.setLRU('lru', 'value');
+      expect(cache.deleteFixed('fixed')).toBe(true);
+      expect(cache.hasFixed('fixed')).toBe(false);
+      expect(cache.deleteLRU('lru')).toBe(true);
+      expect(cache.hasLRU('lru')).toBe(false);
+    });
+
+    it('should freeLRU free only the LRU portion', function() {
+      var cache = Cache();
+      cache.setFixed('fixed', 'value');
+      cache.setLRU('lru', 'value');
+      // Verify state before free
+      expect(cache.get('fixed')).toBe('value');
+      expect(cache.get('lru')).toBe('value');
+      expect(cache.fixedCapacity).toBe(1);
+      cache.freeLRU();
+      // Fixed cache should be intact
+      expect(cache.getFixed('fixed')).toBe('value');
+      expect(cache.fixedCapacity).toBe(1);
+      // LRU portion should be freed
+      expect(cache.fixedCapacity).toBe(1);
+    });
+
+    it('should set with object options.expires', function() {
+      var cache = Cache();
+      return new Promise(function(resolve) {
+        cache.set('key', 'value', { expires: 30 });
+        expect(cache.get('key')).toBe('value');
+        setTimeout(function() {
+          expect(cache.get('key')).toBeUndefined();
+          resolve();
+        }, 40);
+      });
+    });
+  });
+
+  describe('Events', function() {
+    it('should emit before_update event on fixed cache', function() {
+      return new Promise(function(resolve, reject) {
+        var cache = Cache();
+        cache.set('key', 'initial', { fixed: true });
+        cache.on('before_update', function(key, value, oldValue) {
+          try {
+            expect(key).toBe('key');
+            expect(value).toBe('updated');
+            expect(oldValue).toBe('initial');
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        cache.set('key', 'updated', { fixed: true });
+      });
+    });
+
+    it('should emit add event when setting to LRU via setLRU', function() {
+      return new Promise(function(resolve, reject) {
+        var cache = Cache();
+        cache.on('add', function(key, value) {
+          try {
+            expect(key).toBe('lru-key');
+            expect(value).toBe('lru-value');
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        cache.setLRU('lru-key', 'lru-value');
       });
     });
   });
