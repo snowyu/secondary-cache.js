@@ -118,7 +118,7 @@ const cache = new Cache({ capacity: 100, expires: 60000, fixedCapacity: 50 });
 
 #### Defined in
 
-[cache.d.ts:45](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L45)
+[cache.d.ts:45](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L45)
 
 ## Properties
 
@@ -132,7 +132,7 @@ const cache = new Cache({ capacity: 100, expires: 60000, fixedCapacity: 50 });
 
 #### Defined in
 
-[lru-cache.d.ts:66](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L66)
+[lru-cache.d.ts:66](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L66)
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:68](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L68)
+[lru-cache.d.ts:68](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L68)
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:70](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L70)
+[lru-cache.d.ts:70](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L70)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:63](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L63)
+[lru-cache.d.ts:63](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L63)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:32](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L32)
+[cache.d.ts:32](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L32)
 
 ___
 
@@ -198,7 +198,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:62](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L62)
+[lru-cache.d.ts:62](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L62)
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:60](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L60)
+[lru-cache.d.ts:60](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L60)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:33](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L33)
+[cache.d.ts:33](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L33)
 
 ___
 
@@ -236,7 +236,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:61](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L61)
+[lru-cache.d.ts:61](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L61)
 
 ___
 
@@ -253,7 +253,7 @@ Only meaningful when using weight-based capacity (maxWeight > 0).
 
 #### Defined in
 
-[lru-cache.d.ts:76](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L76)
+[lru-cache.d.ts:76](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L76)
 
 ## Methods
 
@@ -281,7 +281,7 @@ cache.clear(); // removes all items from the cache
 
 #### Defined in
 
-[lru-cache.d.ts:195](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L195)
+[lru-cache.d.ts:195](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L195)
 
 ___
 
@@ -309,7 +309,7 @@ cache.clearExpires(); // removes all expires items from the cache
 
 #### Defined in
 
-[lru-cache.d.ts:221](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L221)
+[lru-cache.d.ts:221](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L221)
 
 ___
 
@@ -343,7 +343,7 @@ cache.del('key1'); // removes the item with key 'key1'
 
 #### Defined in
 
-[cache.d.ts:83](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L83)
+[cache.d.ts:83](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L83)
 
 ___
 
@@ -373,7 +373,7 @@ const removed = cache.delFixed("someItem");
 
 #### Defined in
 
-[cache.d.ts:73](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L73)
+[cache.d.ts:73](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L73)
 
 ___
 
@@ -394,7 +394,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:57](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L57)
+[cache.d.ts:57](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L57)
 
 ___
 
@@ -419,7 +419,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:100](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L100)
+[lru-cache.d.ts:100](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L100)
 
 ___
 
@@ -453,7 +453,7 @@ const removed = cache.delete("someItem");
 
 #### Defined in
 
-[cache.d.ts:82](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L82)
+[cache.d.ts:82](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L82)
 
 ___
 
@@ -483,7 +483,7 @@ const removed = cache.deleteFixed("someItem");
 
 #### Defined in
 
-[cache.d.ts:65](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L65)
+[cache.d.ts:65](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L65)
 
 ___
 
@@ -504,7 +504,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:56](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L56)
+[cache.d.ts:56](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L56)
 
 ___
 
@@ -537,7 +537,7 @@ cache.forEach((value, key, cache) => console.log(key, value));
 
 #### Defined in
 
-[lru-cache.d.ts:213](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L213)
+[lru-cache.d.ts:213](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L213)
 
 ___
 
@@ -558,7 +558,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:126](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L126)
+[cache.d.ts:126](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L126)
 
 ___
 
@@ -586,7 +586,7 @@ cache.free(); // frees up the memory used by the cache
 
 #### Defined in
 
-[lru-cache.d.ts:204](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L204)
+[lru-cache.d.ts:204](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L204)
 
 ___
 
@@ -608,7 +608,7 @@ cache.freeLRU();
 
 #### Defined in
 
-[cache.d.ts:125](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L125)
+[cache.d.ts:125](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L125)
 
 ___
 
@@ -642,7 +642,7 @@ const value = cache.get('key1');
 
 #### Defined in
 
-[lru-cache.d.ts:175](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L175)
+[lru-cache.d.ts:175](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L175)
 
 ___
 
@@ -672,7 +672,7 @@ const value = cache.getFixed("someItem");
 
 #### Defined in
 
-[cache.d.ts:92](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L92)
+[cache.d.ts:92](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L92)
 
 ___
 
@@ -692,7 +692,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:93](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L93)
+[cache.d.ts:93](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L93)
 
 ___
 
@@ -726,7 +726,7 @@ const exists = cache.has("someItem");
 
 #### Defined in
 
-[lru-cache.d.ts:110](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L110)
+[lru-cache.d.ts:110](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L110)
 
 ___
 
@@ -756,7 +756,7 @@ const exists = cache.hasFixed("someItem");
 
 #### Defined in
 
-[cache.d.ts:54](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L54)
+[cache.d.ts:54](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L54)
 
 ___
 
@@ -776,7 +776,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:55](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L55)
+[cache.d.ts:55](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L55)
 
 ___
 
@@ -802,7 +802,7 @@ Wether the id is in the cache
 
 #### Defined in
 
-[lru-cache.d.ts:115](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L115)
+[lru-cache.d.ts:115](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L115)
 
 ___
 
@@ -828,7 +828,7 @@ Wether the id is in the cache
 
 #### Defined in
 
-[lru-cache.d.ts:120](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L120)
+[lru-cache.d.ts:120](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L120)
 
 ___
 
@@ -854,7 +854,7 @@ Check the item whether already expired, the item will be removed from the cache 
 
 #### Defined in
 
-[lru-cache.d.ts:157](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L157)
+[lru-cache.d.ts:157](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L157)
 
 ___
 
@@ -876,7 +876,7 @@ The number of items in the FixedCache and LRUCache.
 
 #### Defined in
 
-[cache.d.ts:140](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L140)
+[cache.d.ts:140](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L140)
 
 ___
 
@@ -901,7 +901,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:102](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L102)
+[lru-cache.d.ts:102](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L102)
 
 ___
 
@@ -926,7 +926,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:101](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L101)
+[lru-cache.d.ts:101](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L101)
 
 ___
 
@@ -960,7 +960,7 @@ const value = cache.peek('key1');
 
 #### Defined in
 
-[lru-cache.d.ts:166](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L166)
+[lru-cache.d.ts:166](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L166)
 
 ___
 
@@ -980,7 +980,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:94](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L94)
+[cache.d.ts:94](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L94)
 
 ___
 
@@ -1004,7 +1004,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:127](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L127)
+[cache.d.ts:127](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L127)
 
 ___
 
@@ -1040,7 +1040,7 @@ const added = cache.set("someItem", "someValue", { fixed: true });
 
 #### Defined in
 
-[cache.d.ts:118](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L118)
+[cache.d.ts:118](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L118)
 
 ___
 
@@ -1066,7 +1066,7 @@ Sets the default options for Cache.
 
 #### Defined in
 
-[cache.d.ts:135](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L135)
+[cache.d.ts:135](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L135)
 
 ___
 
@@ -1086,7 +1086,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:128](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L128)
+[cache.d.ts:128](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L128)
 
 ___
 
@@ -1117,7 +1117,7 @@ const added = cache.setFixed("someItem", "someValue");
 
 #### Defined in
 
-[cache.d.ts:104](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L104)
+[cache.d.ts:104](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L104)
 
 ___
 
@@ -1139,7 +1139,7 @@ ___
 
 #### Defined in
 
-[cache.d.ts:105](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/cache.d.ts#L105)
+[cache.d.ts:105](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/cache.d.ts#L105)
 
 ___
 
@@ -1175,4 +1175,4 @@ The weight of the value. Default returns 1 (count-based).
 
 #### Defined in
 
-[lru-cache.d.ts:131](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L131)
+[lru-cache.d.ts:131](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L131)

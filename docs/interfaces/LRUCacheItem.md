@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[lru-cache.d.ts:36](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L36)
+[lru-cache.d.ts:36](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L36)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:34](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L34)
+[lru-cache.d.ts:34](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L34)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[lru-cache.d.ts:35](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L35)
+[lru-cache.d.ts:35](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L35)
 
 ___
 
@@ -51,4 +51,4 @@ The weight of the item for capacity control.
 
 #### Defined in
 
-[lru-cache.d.ts:40](https://github.com/snowyu/secondary-cache.js/blob/8685512/src/lru-cache.d.ts#L40)
+[lru-cache.d.ts:40](https://github.com/snowyu/secondary-cache.js/blob/91d49dd/src/lru-cache.d.ts#L40)
