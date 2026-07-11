@@ -1,1 +1,1 @@
-module.exports   = require("./lib/cache")
+module.exports   = require("./lib/index")

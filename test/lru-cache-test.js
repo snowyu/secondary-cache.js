@@ -1,10 +1,4 @@
-import chai from 'chai'
-import sinon from 'sinon'
-import sinonChai from 'sinon-chai'
-
-const should = chai.should();
-const expect = chai.expect;
-chai.use(sinonChai);
+import { describe, it, expect, afterEach } from 'vitest'
 
 import Cache from '../src/lru-cache'
 
@@ -26,18 +20,18 @@ describe("LRUCache", function() {
     it('should add a value to cache', function() {
       var value;
       value = Math.random();
-      should.not.exist(cache.get('key'));
+      expect(cache.get('key')).toBeUndefined();
       cache.set('key', value);
-      cache.get('key').should.be.equal(value);
+      expect(cache.get('key')).toBe(value);
     });
     it('should add to cache with expires', function(done) {
       var value;
       value = Math.random();
-      should.not.exist(cache.get('expiresKey'));
+      expect(cache.get('expiresKey')).toBeUndefined();
       cache.set('expiresKey', value, 50);
-      cache.get('expiresKey').should.be.equal(value);
+      expect(cache.get('expiresKey')).toBe(value);
       setTimeout(function() {
-        should.not.exist(cache.get('expiresKey'));
+        expect(cache.get('expiresKey')).toBeUndefined();
         done();
       }, 51);
     });
@@ -45,34 +39,34 @@ describe("LRUCache", function() {
       var oldValue, result, value;
       value = Math.random();
       oldValue = cache.get('key');
-      should.exist(oldValue);
+      expect(oldValue).toBeDefined();
       cache.set('key', value);
       result = cache.get('key');
-      result.should.be.equal(value);
-      result.should.be.not.equal(oldValue);
+      expect(result).toBe(value);
+      expect(result).not.toBe(oldValue);
     });
     it('should delete key in cache', function() {
-      cache.del("NotFind").should.be["false"];
+      expect(cache.del("NotFind")).toBe(false);
       cache.set('key', "1");
-      cache.del("key").should.be["true"];
+      expect(cache.del("key")).toBe(true);
     });
     it('should clear cache', function() {
       var k, notEmpty, pairs, v;
       pairs = fillDataTo(cache);
       for (k in pairs) {
         v = pairs[k];
-        cache.get(k).should.be.equal(v);
+        expect(cache.get(k)).toBe(v);
       }
       cache.clear();
       for (k in pairs) {
-        should.not.exist(cache.get(k));
+        expect(cache.get(k)).toBeUndefined();
       }
       return;
       notEmpty = false;
       cache.forEach(function(v, k, cache) {
         return notEmpty = true;
       });
-      return notEmpty.should.be["false"];
+      return expect(notEmpty).toBe(false);
     });
     it('should forEach cache', function() {
       var count, pairs;
@@ -80,9 +74,9 @@ describe("LRUCache", function() {
       count = 0;
       cache.forEach(function(v, k, cache) {
         ++count;
-        v.should.be.equal(pairs[k]);
+        expect(v).toBe(pairs[k]);
       });
-      count.should.be.equal(Object.keys(pairs).length);
+      expect(count).toBe(Object.keys(pairs).length);
     });
     it('should emit the del event when free cache', function() {
       var count, pairs, vCache;
@@ -91,10 +85,10 @@ describe("LRUCache", function() {
       count = 0;
       vCache.on('del', function(k, v) {
         ++count;
-        v.should.be.equal(pairs[k]);
+        expect(v).toBe(pairs[k]);
       });
       vCache.free();
-      count.should.be.equal(Object.keys(pairs).length);
+      expect(count).toBe(Object.keys(pairs).length);
     });
     it('should free cache', function() {
       var count, pairs, vCache;
@@ -105,7 +99,7 @@ describe("LRUCache", function() {
       vCache.forEach(function(v, k, cache) {
         ++count;
       });
-      count.should.be.equal(0);
+      expect(count).toBe(0);
     });
   });
   describe("LRU Cache", function() {
@@ -115,9 +109,9 @@ describe("LRUCache", function() {
       cache.set('a', 'A');
       cache.set('b', 'B');
       cache.set('c', 'C');
-      cache.get('c').should.be.equal('C');
-      cache.get('b').should.be.equal('B');
-      should.not.exist(cache.get('a'));
+      expect(cache.get('c')).toBe('C');
+      expect(cache.get('b')).toBe('B');
+      expect(cache.get('a')).toBeUndefined();
     });
     it('should lru recently gotten', function() {
       cache.clear();
@@ -125,91 +119,127 @@ describe("LRUCache", function() {
       cache.set('b', 'B');
       cache.get('a');
       cache.set('c', 'C');
-      cache.get('c').should.be.equal('C');
-      cache.get('a').should.be.equal('A');
-      should.not.exist(cache.get('b'));
+      expect(cache.get('c')).toBe('C');
+      expect(cache.get('a')).toBe('A');
+      expect(cache.get('b')).toBeUndefined();
     });
     it('should lru recently gotten 2', function() {
       cache.clear();
       cache.set('a', 'A');
       cache.set('b', 'B');
       cache.set('c', 'C');
-      cache.get('c').should.be.equal('C');
-      cache.get('b').should.be.equal('B');
-      should.not.exist(cache.get('a'));
+      expect(cache.get('c')).toBe('C');
+      expect(cache.get('b')).toBe('B');
+      expect(cache.get('a')).toBeUndefined();
       cache.set('a', 'A');
       cache.set('b', 'B');
       cache.get('a');
       cache.set('c', 'C');
-      cache.get('c').should.be.equal('C');
-      cache.get('a').should.be.equal('A');
-      should.not.exist(cache.get('b'));
+      expect(cache.get('c')).toBe('C');
+      expect(cache.get('a')).toBe('A');
+      expect(cache.get('b')).toBeUndefined();
     });
   });
   describe("Events on LRU Cache", function() {
     var cache;
     cache = Cache(2);
-    it('should listen to "before_add" event', function(done) {
-      var expected;
-      expected = Math.random();
-      cache.on('before_add', function(key, value) {
-        key.should.be.equal('before_add_key');
-        value.should.be.equal(expected);
-        done();
-      });
-      cache.set('before_add_key', expected);
+    afterEach(function() {
+      cache.removeAllListeners();
     });
-    it('should listen to "add" event', function(done) {
-      var expected;
-      expected = Math.random();
-      cache.on('add', function(key, value) {
-        key.should.be.equal('key');
-        value.should.be.equal(expected);
-        done();
+    it('should listen to "before_add" event', function() {
+      return new Promise(function(resolve, reject) {
+        var expected;
+        expected = Math.random();
+        cache.on('before_add', function(key, value) {
+          try {
+            expect(key).toBe('before_add_key');
+            expect(value).toBe(expected);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        cache.set('before_add_key', expected);
       });
-      cache.set('key', expected);
     });
-    it('should listen to "before_update" event', function(done) {
-      var newValue, oldValue;
-      newValue = Math.random();
-      oldValue = cache.get('before_add_key');
-      should.exist(oldValue);
-      cache.on('before_update', function(key, value, aOldValue) {
-        key.should.be.equal('before_add_key');
-        value.should.be.equal(newValue);
-        aOldValue.should.be.equal(oldValue);
-        done();
+    it('should listen to "add" event', function() {
+      return new Promise(function(resolve, reject) {
+        var expected;
+        expected = Math.random();
+        cache.on('add', function(key, value) {
+          try {
+            expect(key).toBe('key');
+            expect(value).toBe(expected);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        cache.set('key', expected);
       });
-      cache.set('before_add_key', newValue);
-      oldValue = cache.get('before_add_key');
-      oldValue.should.be.equal(newValue);
     });
-    it('should listen to "update" event', function(done) {
-      var newValue, oldValue;
-      newValue = Math.random();
-      oldValue = cache.get('key');
-      should.exist(oldValue);
-      cache.on('update', function(key, value, aOldValue) {
-        key.should.be.equal('key');
-        value.should.be.equal(newValue);
-        aOldValue.should.be.equal(oldValue);
-        done();
+    it('should listen to "before_update" event', function() {
+      return new Promise(function(resolve, reject) {
+        var newValue, oldValue;
+        cache.set('before_add_key', 'initial');
+        newValue = Math.random();
+        oldValue = cache.get('before_add_key');
+        expect(oldValue).toBeDefined();
+        cache.on('before_update', function(key, value, aOldValue) {
+          try {
+            expect(key).toBe('before_add_key');
+            expect(value).toBe(newValue);
+            expect(aOldValue).toBe(oldValue);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        cache.set('before_add_key', newValue);
+        oldValue = cache.get('before_add_key');
+        expect(oldValue).toBe(newValue);
       });
-      cache.set('key', newValue);
-      oldValue = cache.get('key');
-      oldValue.should.be.equal(newValue);
     });
-    it('should listen to "del" event', function(done) {
-      var oldValue;
-      oldValue = cache.get('key');
-      should.exist(oldValue);
-      cache.on('del', function(key, value) {
-        key.should.be.equal('key');
-        value.should.be.equal(oldValue);
-        done();
+    it('should listen to "update" event', function() {
+      return new Promise(function(resolve, reject) {
+        var newValue, oldValue;
+        cache.set('key', 'initial');
+        newValue = Math.random();
+        oldValue = cache.get('key');
+        expect(oldValue).toBeDefined();
+        cache.on('update', function(key, value, aOldValue) {
+          try {
+            expect(key).toBe('key');
+            expect(value).toBe(newValue);
+            expect(aOldValue).toBe(oldValue);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        cache.set('key', newValue);
+        oldValue = cache.get('key');
+        expect(oldValue).toBe(newValue);
       });
-      cache.del('key');
-      cache.has('key').should.be["false"];
+    });
+    it('should listen to "del" event', function() {
+      return new Promise(function(resolve, reject) {
+        var oldValue;
+        cache.set('key', 'initial');
+        oldValue = cache.get('key');
+        expect(oldValue).toBeDefined();
+        cache.on('del', function(key, value) {
+          try {
+            expect(key).toBe('key');
+            expect(value).toBe(oldValue);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        cache.del('key');
+        expect(cache.has('key')).toBe(false);
+      });
     });
   });
   describe("MaxAge(options.expires) Cache", function() {
@@ -229,9 +259,9 @@ describe("LRUCache", function() {
       count = 0;
       cache.forEach(function(v, k, cache) {
         ++count;
-        v.should.be.equal(pairs[k]);
+        expect(v).toBe(pairs[k]);
       });
-      count.should.be.equal(10);
+      expect(count).toBe(10);
       setTimeout(function() {
         var k, v;
         let isEmpty = true;
@@ -240,9 +270,9 @@ describe("LRUCache", function() {
         });
         for (k in pairs) {
           v = pairs[k];
-          should.not.exist(cache.get(k));
+          expect(cache.get(k)).toBeUndefined();
         }
-        isEmpty.should.be["true"];
+        expect(isEmpty).toBe(true);
         done();
       }, 50);
     });
